@@ -34,3 +34,7 @@ app.prepare().then(() => {
     console.log("koa server listening on 3000");
   });
 });
+
+//解决 isolatedModules 报错问题
+// export default undefined;
+module.exports = {};

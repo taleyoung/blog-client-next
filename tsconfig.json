@@ -12,8 +12,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "./",
+    "paths": {
+      "@client/*": ["client/*"],
+      "@redux/*": ["client/redux/*"],
+      "@components/*": ["client/components/*"],
+      "@assets/*": ["client/assets/*"],
+      "@utils/*": ["client/utils/*"]
+    }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.ts"]
 }

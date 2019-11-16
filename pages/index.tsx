@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-
+import { connect } from "react-redux";
 const Home = () => (
   <div>
     <h1 className="test">
@@ -17,4 +17,9 @@ const Home = () => (
     </style>
   </div>
 );
-export default Home;
+export default connect(state => {
+  console.log("state :", state);
+  return {
+    state: state
+  };
+})(Home);
