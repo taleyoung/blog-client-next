@@ -1,20 +1,26 @@
 import React, { SFC, useState, useEffect } from "react";
 import { Avatar, Divider, Tag } from "antd";
-import myApi from "../../../../utils/myApi";
+import myApi from "@utils/myApi";
 import style from "./style.less";
 // import avatar1 from "@assets/img/avatar1.jpeg";
 
-export interface IProp {}
+export interface IProp {
+  tags?: any[];
+}
 
-const SideBar: SFC<IProp> = () => {
-  const [tags, setTags] = useState([]);
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await myApi("tag");
-      setTags(res);
-    };
-    fetch();
-  }, []);
+interface Next {
+  getInitialProps: any;
+}
+
+const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
+  // const [tags, setTags] = useState([]);
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const res = await myApi("tag");
+  //     setTags(res);
+  //   };
+  //   fetch();
+  // }, []);
   return (
     <div className={style.container}>
       {/* <Avatar src={avatar1} size="large" className={style.avatar}></Avatar> */}
@@ -37,6 +43,15 @@ const SideBar: SFC<IProp> = () => {
       </div>
     </div>
   );
+};
+
+SideBar.getInitialProps = async function() {
+  console.log("object");
+  const res = await myApi("tag");
+  console.log("res", res);
+  return {
+    tags: res
+  };
 };
 
 export default SideBar;

@@ -1,7 +1,16 @@
 import { createStore, applyMiddleware } from "redux";
 import reducers from "./reducers";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-let store = createStore(reducers, applyMiddleware(thunk));
+export default function initializeStore(state) {
+  const store = createStore(
+    reducers,
+    // Object.assign({},{
 
-export default store;
+    // })
+    // ,
+    composeWithDevTools(applyMiddleware(thunk))
+  );
+  return store;
+}

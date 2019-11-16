@@ -1,6 +1,6 @@
 import React, { SFC } from "react";
 import { Menu, Icon, Button } from "antd";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import style from "./style.less";
 
 const IconFont = Icon.createFromIconfontCN({
@@ -50,9 +50,11 @@ const Header: SFC<Props> = props => {
         <Menu theme="light" mode="horizontal" defaultSelectedKeys={["首页"]}>
           {menuList.map(menu => (
             <Menu.Item key={menu.name}>
-              <Link to={menu.path}>
-                <IconFont type={menu.iconType} style={{ fontSize: "24px" }} />
-                {menu.name}
+              <Link href={menu.path}>
+                <div>
+                  <IconFont type={menu.iconType} style={{ fontSize: "24px" }} />
+                  {menu.name}
+                </div>
               </Link>
             </Menu.Item>
           ))}

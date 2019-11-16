@@ -1,20 +1,27 @@
 import App, { Container } from "next/app";
 import { Provider } from "react-redux";
-import store from "../client/redux/store";
+import Layout from "@components/Layout/App";
+import withReduxStore from "@utils/withRedux";
 
 import "antd/dist/antd.css";
 
-class MyApp extends App {
+interface Props {
+  reduxStore: any;
+}
+class MyApp extends App<Props> {
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, reduxStore } = this.props;
     return (
-      <Container>
-        <Provider store={store}>
-          <Component {...pageProps}></Component>
-        </Provider>
-      </Container>
+      // <Container>
+      <Provider store={reduxStore}>
+        <Layout
+          // dispatch={reduxStore.dispatch}
+          children={<Component {...pageProps} />}
+        ></Layout>
+      </Provider>
+      // </Container>
     );
   }
 }
 
-export default MyApp;
+export default withReduxStore(MyApp);
