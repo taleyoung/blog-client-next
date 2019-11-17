@@ -1,7 +1,6 @@
 import React, { SFC, ReactNode } from "react";
 import { Layout } from "antd";
 import Sider from "./Sider";
-import style from "./style.less";
 
 const { Content } = Layout;
 
@@ -9,11 +8,21 @@ export interface Props {
   children: ReactNode;
 }
 const AdminLayout: SFC<Props> = props => (
-  <Layout>
-    <Sider></Sider>
+  <div>
     <Layout>
-      <Content className={style.content}>{props.children}</Content>
+      <Sider></Sider>
+      <Layout>
+        <div className="content">
+          <Content>{props.children}</Content>
+        </div>
+      </Layout>
     </Layout>
-  </Layout>
+    <style jsx>{`
+      .content {
+        margin: 30px;
+        height: 800px;
+      }
+    `}</style>
+  </div>
 );
 export default AdminLayout;

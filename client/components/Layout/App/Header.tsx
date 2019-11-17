@@ -2,7 +2,6 @@ import React, { SFC } from "react";
 import { Menu, Icon, Button } from "antd";
 import Link from "next/link";
 import css from "styled-jsx/css";
-// import style from "./style";
 
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1445382_6tc0o0rwbfu.js"

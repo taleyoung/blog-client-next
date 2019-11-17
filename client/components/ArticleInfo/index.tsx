@@ -1,7 +1,6 @@
 import React, { SFC } from "react";
 import { Tag, Divider } from "antd";
 import TagIcon from "../TagIcon";
-import style from "./style.less";
 
 interface Props {
   time: string;
@@ -11,8 +10,8 @@ interface Props {
 
 const ArticleInfo: SFC<Props> = ({ time, tags = [], archives = [] }) => {
   return (
-    <div className={style.info}>
-      <span className={style.date}>发布于 {time}</span>
+    <div className="info">
+      <span className="date">发布于 {time}</span>
       <TagIcon type="tag"></TagIcon>
       {tags.map(item => (
         <Tag color="orange" key={item}>
@@ -26,6 +25,19 @@ const ArticleInfo: SFC<Props> = ({ time, tags = [], archives = [] }) => {
           {item}
         </Tag>
       ))}
+      <style jsx>{`
+        .info {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-top: 15px;
+        }
+        .date {
+          font-size: 10px;
+          font-weight: 300;
+          margin-right: 10px;
+        }
+      `}</style>
     </div>
   );
 };

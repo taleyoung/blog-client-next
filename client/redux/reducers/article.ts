@@ -1,6 +1,6 @@
 import * as actionTypes from "../action-types";
 import { Article } from "../../types/store";
-import { Action } from "../../utils/createAction";
+import { Action } from "@utils/createAction";
 
 let initState: Article = {
   articleList: { total: 0, data: [] },
@@ -8,6 +8,7 @@ let initState: Article = {
 };
 
 export default function article(state = initState, action: Action): Article {
+  console.log("action :", action);
   const { type, payload } = action;
   switch (type) {
     case actionTypes.GET_ARTICLE_LIST:
@@ -29,7 +30,6 @@ export default function article(state = initState, action: Action): Article {
         articleDetail: payload
       };
     case actionTypes.DELETE_ARTICLE:
-      console.log("payload", payload);
       return {
         ...state,
         articleList: {

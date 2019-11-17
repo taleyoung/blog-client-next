@@ -1,9 +1,9 @@
 import React, { SFC, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 import { Table, Popconfirm, Tag } from "antd";
+import Router from "next/router";
 import { fetchArticleList, deleteArticle } from "@redux/actions/article";
-import { Store, ArticleDetail, ArticleList } from "@src/types/store";
+import { Store, ArticleDetail, ArticleList } from "@client/types/store";
 import BreadCrumb from "@components/BreadCrumb";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 interface ArticleListTable extends ArticleDetail {
   key: string;
 }
-const Overview: SFC<Props & RouteComponentProps> = props => {
+const Overview: SFC<Props> = props => {
   const [loading, setLoading] = useState(true);
   const [tableData, setData] = useState([]);
   const { articleList } = props;
@@ -89,7 +89,7 @@ const Overview: SFC<Props & RouteComponentProps> = props => {
   };
 
   const toArticle = (id: number) => {
-    props.history.push(`/admin/article/${id}`);
+    Router.push(`/admin/article?id=${id}`);
   };
 
   useEffect(() => {

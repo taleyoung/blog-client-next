@@ -1,6 +1,5 @@
 import React, { SFC } from "react";
 import { Breadcrumb } from "antd";
-import style from "./style.less";
 const { Item } = Breadcrumb;
 
 interface Props {
@@ -8,11 +7,20 @@ interface Props {
 }
 
 const BreadCrumb: SFC<Props> = props => (
-  <Breadcrumb className={style.container}>
-    {props.list.map(item => (
-      <Item key={item}>{item}</Item>
-    ))}
-  </Breadcrumb>
+  <>
+    <Breadcrumb className="container">
+      {props.list.map(item => (
+        <Item key={item}>{item}</Item>
+      ))}
+    </Breadcrumb>
+    <style jsx>
+      {`
+        .container {
+          margin: 16px 0;
+        }
+      `}
+    </style>
+  </>
 );
 
 export default BreadCrumb;

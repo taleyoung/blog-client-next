@@ -1,10 +1,18 @@
 import React, { SFC } from "react";
 import { Spin } from "antd";
-import style from "./index.less";
 
 const Loading: SFC = () => (
-  <div className={style.container}>
+  <div className="container">
     <Spin size="large"></Spin>
+    <style jsx>{`
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 600px;
+      }
+    `}</style>
   </div>
 );
 

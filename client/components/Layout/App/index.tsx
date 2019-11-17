@@ -1,6 +1,6 @@
 import React, { SFC, ReactNode } from "react";
 import Header from "./Header";
-import SideBar from "./SideBar";
+import SideBar from "./SiderBar";
 import { Layout, Row, Col } from "antd";
 
 const { Footer } = Layout;

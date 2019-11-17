@@ -35,6 +35,13 @@ const AppSider: SFC = () => {
           <span>分类管理</span>
         </Menu.Item>
       </Menu>
+      <style jsx>{`
+        .logo {
+          height: 32px;
+          background: rgba(255, 255, 255, 0.2);
+          margin: 16px;
+        }
+      `}</style>
     </Sider>
   );
 };

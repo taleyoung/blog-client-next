@@ -1,14 +1,20 @@
 import React, { SFC } from "react";
 import { Icon } from "antd";
-import style from "./style.less";
 
 interface IProp {
   type: string;
 }
 
 const TagIcon: SFC<IProp> = props => (
-  <span className={style.tag}>
+  <span className="tag">
     <Icon type={props.type}></Icon>
+    <style jsx>
+      {`
+        .tag {
+          margin-right: 5px;
+        }
+      `}
+    </style>
   </span>
 );
 

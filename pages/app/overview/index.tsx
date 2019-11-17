@@ -1,11 +1,10 @@
 import React, { SFC, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Router, { withRouter } from "next/router";
+import Router from "next/router";
 import { Pagination, Spin } from "antd";
-import { Store, ArticleList } from "../../../client/types/store";
-import Preview from "../../../client/components/Preview";
-import { fetchArticleList } from "../../../client/redux/actions/article";
-import style from "./style.less";
+import { Store, ArticleList } from "@client/types/store";
+import Preview from "@client/components/Preview";
+import { fetchArticleList } from "@client/redux/actions/article";
 
 interface Props {
   articleList: ArticleList;
@@ -17,20 +16,21 @@ interface Next {
 }
 
 const Overview: SFC<Props> & Next = props => {
+  console.log("props :", props);
   // const [loading, setLoading] = useState(true);
   const { articleList } = props;
   const { total, data } = articleList;
 
-  // useEffect(() => {
-  //   const getArticles = async () => {
-  //     await props.fetchArticleList();
-  //   };
-  //   getArticles();
-  //   setLoading(false);
-  // }, []);
+  useEffect(() => {
+    const getArticles = async () => {
+      await props.fetchArticleList();
+    };
+    getArticles();
+    // setLoading(false);
+  }, []);
 
   const toArticleDetail = (id: number) => {
-    Router.push(`/app/article/${id}`);
+    Router.push(`/app/article?id=${id}`);
   };
 
   const pageChange = async (page: number) => {
@@ -38,13 +38,10 @@ const Overview: SFC<Props> & Next = props => {
   };
 
   return (
-    <div className={style.container}>
+    <div className="container">
       <Spin spinning={false}>
         {data.map((item, index) => (
-          <div
-            key={`${item.title}${index}`}
-            // onClick={() => toArticleDetail(item.id)}
-          >
+          <div key={`${item.title}${index}`}>
             <Preview
               id={item.id}
               title={item.title}
@@ -62,6 +59,15 @@ const Overview: SFC<Props> & Next = props => {
           onChange={page => pageChange(page)}
         />
       </Spin>
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-top: 30px;
+        }
+      `}</style>
     </div>
   );
 };
