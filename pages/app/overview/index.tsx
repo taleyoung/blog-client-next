@@ -1,6 +1,6 @@
 import React, { SFC, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import Router, { withRouter } from "next/router";
 import { Pagination, Spin } from "antd";
 import { Store, ArticleList } from "../../../client/types/store";
 import Preview from "../../../client/components/Preview";
@@ -12,21 +12,25 @@ interface Props {
   fetchArticleList: typeof fetchArticleList;
 }
 
-const Overview: SFC<Props & RouteComponentProps> = props => {
-  const [loading, setLoading] = useState(true);
+interface Next {
+  getInitialProps: any;
+}
+
+const Overview: SFC<Props> & Next = props => {
+  // const [loading, setLoading] = useState(true);
   const { articleList } = props;
   const { total, data } = articleList;
 
-  useEffect(() => {
-    const getArticles = async () => {
-      await props.fetchArticleList();
-    };
-    getArticles();
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   const getArticles = async () => {
+  //     await props.fetchArticleList();
+  //   };
+  //   getArticles();
+  //   setLoading(false);
+  // }, []);
 
   const toArticleDetail = (id: number) => {
-    props.history.push(`/app/article/${id}`);
+    Router.push(`/app/article/${id}`);
   };
 
   const pageChange = async (page: number) => {
@@ -35,7 +39,7 @@ const Overview: SFC<Props & RouteComponentProps> = props => {
 
   return (
     <div className={style.container}>
-      <Spin spinning={loading}>
+      <Spin spinning={false}>
         {data.map((item, index) => (
           <div
             key={`${item.title}${index}`}
@@ -60,6 +64,13 @@ const Overview: SFC<Props & RouteComponentProps> = props => {
       </Spin>
     </div>
   );
+};
+
+Overview.getInitialProps = async () => {
+  console.log("进入initialProps :");
+  const res = await fetchArticleList();
+  console.log("res :", res);
+  return { res };
 };
 
 export default connect(

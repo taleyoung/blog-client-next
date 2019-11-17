@@ -1,9 +1,8 @@
 import React, { SFC, useEffect } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 
 import { fetchArticleDetail } from "@redux/actions/article";
-import { Store, ArticleDetail } from "@src/types/store";
+import { Store, ArticleDetail } from "@client/types/store";
 import ArticleInfo from "@components/ArticleInfo";
 import style from "./style.less";
 
@@ -13,7 +12,7 @@ interface Props {
   fetchArticleDetail: typeof fetchArticleDetail;
 }
 
-const Article: SFC<Props & RouteComponentProps> = props => {
+const Article: SFC<Props> = props => {
   const { title, content, updatedAt, tags = [] } = props.article;
   const { params } = props.match;
 

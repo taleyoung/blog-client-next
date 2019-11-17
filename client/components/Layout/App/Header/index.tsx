@@ -1,7 +1,8 @@
 import React, { SFC } from "react";
 import { Menu, Icon, Button } from "antd";
 import Link from "next/link";
-import style from "./style.less";
+import css from "styled-jsx/css";
+// import style from "./style";
 
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1445382_6tc0o0rwbfu.js"
@@ -38,15 +39,13 @@ const menuList = [
 export interface Props {}
 
 const Header: SFC<Props> = props => {
-  console.log("props", props);
   // const toAdmin = () => {
   //   props.history.push("/admin/overview");
   // };
-
   return (
-    <div className={style.topBar}>
-      <div className={style.logo}>Taleyoung的博客</div>
-      <div className={style.menu}>
+    <div className="topBar">
+      <div className="logo">Taleyoung的博客</div>
+      <div className="menu">
         <Menu theme="light" mode="horizontal" defaultSelectedKeys={["首页"]}>
           {menuList.map(menu => (
             <Menu.Item key={menu.name}>
@@ -61,8 +60,31 @@ const Header: SFC<Props> = props => {
         </Menu>
         {/* <Button>Admin</Button> */}
       </div>
+      <style jsx>{style}</style>
     </div>
   );
 };
 
 export default Header;
+
+const style = css`
+  .logo {
+    padding-left: 5%;
+    font-size: 24px;
+  }
+
+  .menu {
+    line-height: 40px;
+    padding-left: 40%;
+  }
+
+  .topBar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 45px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 5px 4px #eee;
+  }
+`;

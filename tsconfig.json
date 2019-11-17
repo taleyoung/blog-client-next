@@ -18,7 +18,7 @@
       "@client/*": ["client/*"],
       "@redux/*": ["client/redux/*"],
       "@components/*": ["client/components/*"],
-      "@assets/*": ["client/assets/*"],
+      "@static/*": ["client/static/*"],
       "@utils/*": ["client/utils/*"]
     }
   },
