@@ -1,6 +1,8 @@
 import React, { SFC, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
+import ReactMarkdown from "react-markdown";
+// import CodeBlock from "@utils/codeBlock";
 import { fetchArticleDetail } from "@redux/actions/article";
 import { Store, ArticleDetail } from "@client/types/store";
 import css from "styled-jsx/css";
@@ -32,7 +34,14 @@ const Article: SFC<Props> = props => {
           tags={tags}
           archives={["33", "44"]}
         ></ArticleInfo>
-        <div className="content">{content}</div>
+        <div className="content">
+          <ReactMarkdown
+            source={content}
+            // renderers={{
+            //   code: CodeBlock
+            // }}
+          ></ReactMarkdown>
+        </div>
       </div>
       <style jsx>{style}</style>
     </div>
@@ -58,7 +67,7 @@ const style = css`
     margin: 30px 90px 0px 90px;
     padding: 10px;
     border-radius: 20px;
-    background: #f5f5d5;
+    /* background: #f5f5d5; */
   }
 
   .title {

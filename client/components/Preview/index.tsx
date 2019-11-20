@@ -20,6 +20,7 @@ const Preview: SFC<Props> = ({ id, title, content, tags, time, toDetail }) => (
         <div>24</div>
       </div>
       <div className="content">
+        <div className="pre-img"></div>
         <div className="title" onClick={() => toDetail(id)}>
           {title}
         </div>
@@ -33,6 +34,7 @@ const Preview: SFC<Props> = ({ id, title, content, tags, time, toDetail }) => (
         ></ArticleInfo>
       </div>
     </div>
+    <Divider style={{ color: "#fddb60" }}></Divider>
     <style jsx>{style}</style>
   </div>
 );
@@ -40,6 +42,11 @@ const Preview: SFC<Props> = ({ id, title, content, tags, time, toDetail }) => (
 export default Preview;
 
 const style = css`
+  .pre-img {
+    height: 150px;
+    background: #fc817c;
+    border-radius: 5px;
+  }
   .container {
     padding: 15px;
     margin-bottom: 20px;
@@ -48,7 +55,7 @@ const style = css`
     width: 600px;
     border: 1px solid #eee;
     border-radius: 10px;
-    background: #f5f5d5;
+    /* background: #f5f5d5; */
   }
   .desc {
     flex: 1;

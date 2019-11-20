@@ -25,7 +25,9 @@ const AppLayout: SFC<Props> = props => {
       <Footer>footer</Footer>
       <style jsx>{`
         .wrapper {
-          background: #efefef;
+           {
+            /* background: #efefef; */
+          }
         }
       `}</style>
     </Layout>

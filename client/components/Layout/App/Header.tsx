@@ -14,14 +14,9 @@ const menuList = [
     name: "首页"
   },
   {
-    path: "/app/article",
+    path: "/app/overview",
     iconType: "icon-jilu",
     name: "文章"
-  },
-  {
-    path: "/app/project",
-    iconType: "icon-lianxi",
-    name: "项目"
   },
   {
     path: "/app/timeline",

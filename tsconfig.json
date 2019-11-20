@@ -12,7 +12,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "isolatedModules": true,
     "baseUrl": "./",
     "paths": {
       "@client/*": ["client/*"],
@@ -20,14 +19,9 @@
       "@components/*": ["client/components/*"],
       "@static/*": ["client/static/*"],
       "@utils/*": ["client/utils/*"]
-    }
+    },
+    "isolatedModules": true
   },
   "exclude": ["node_modules"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "index.ts",
-    "client/components/Layout/App/Header/style.js"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.ts"]
 }

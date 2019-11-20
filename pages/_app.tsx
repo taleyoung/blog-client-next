@@ -13,7 +13,7 @@ interface Props {
 class MyApp extends App<Props> {
   isAppLayout(pathname) {
     const arr = pathname.split("/");
-    return arr[1] === "app";
+    return !(arr[1] === "admin");
   }
   renderLayout() {
     const { Component, pageProps, router } = this.props;
