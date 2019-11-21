@@ -4,14 +4,14 @@ var config = require("../config/default.js");
 import mysql from "mysql2";
 
 var pool = mysql.createPool({
-  host: config.database.HOST,
-  user: config.database.USERNAME,
-  password: config.database.PASSWORD,
-  database: config.database.DATABASE,
-  port: config.database.PORT
+  host: "127.0.0.1",
+  user: "root",
+  password: "taleyoung",
+  database: "blog",
+  port: 3306
 });
 
-let query = (sql, values) => {
+let query = (sql: string, values?: any) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       if (err) {
@@ -29,3 +29,10 @@ let query = (sql, values) => {
     });
   });
 };
+
+const selectAllUser = () => {
+  const _sql = "SELECT * FROM ARTICLE";
+  return query(_sql);
+};
+
+export { selectAllUser };

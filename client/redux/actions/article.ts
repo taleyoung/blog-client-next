@@ -2,7 +2,7 @@ import * as actionTypes from "../action-types";
 import { createActionAsync } from "../../utils/createAction";
 import { UpdateArticleScheme } from "../../types/index";
 
-const url = "http://127.0.0.1:7001/api/v1/article";
+const url = "http://127.0.0.1:3000/api/v1/article";
 
 export const fetchArticleList = (
   page: number = 1,

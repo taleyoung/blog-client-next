@@ -1,12 +1,15 @@
 // const Router = require("koa-router");
 import Router from "koa-router";
-const router = new Router();
+const article = new Router();
 // const ArticleController = require("../controllers/articles");
 import ArticleController from "../controllers/articles";
 
-router.get("/api/articles", async ctx => {
+article.get("api/v1/articles", async ctx => {
+  console.log("来route了 :");
+  ctx.set("Content-Type", "application/json");
   ctx.body = "111";
+  ctx.status = 200;
 });
 
 // module.exports = { router };
-export default { router };
+export default article;

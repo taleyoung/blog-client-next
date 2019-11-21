@@ -1,18 +1,4 @@
 {
-  // "presets": ["next/babel"],
-  // "production": {
-  //   "presets": [
-  //     "next/babel",
-  //     [
-  //       "env",
-  //       {
-  //         "targets": {
-  //           "node": "8"
-  //         }
-  //       }
-  //     ]
-  //   ]
-  // },
   "plugins": [
     [
       "import",
