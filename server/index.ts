@@ -4,9 +4,7 @@ import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
 import logger from "koa-logger";
 
-import article from "./routers/index";
-import Router from "koa-router";
-const router = new Router();
+import router from "./routers/index";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -30,17 +28,6 @@ app.prepare().then(() => {
     .use(cors())
     .use(bodyParser())
     .use(logger());
-  // router.all("*", async ctx => {
-  //   await handle(ctx.req, ctx.res);
-  //   ctx.respond = false;
-  // });
-  // router.get("/api/v1/article", async ctx => {
-  //   console.log("来route了 :");
-  //   ctx.set("Content-Type", "application/json");
-  //   ctx.body = "111";
-  //   ctx.status = 200;
-  // });
-  router.use("/", article.routes(), article.allowedMethods());
 
   server.use(router.routes()).use(router.allowedMethods());
 
