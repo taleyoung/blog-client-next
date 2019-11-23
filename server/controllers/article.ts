@@ -1,24 +1,25 @@
+import Koa from "koa";
 import articleService from "../services/article";
-import { Article } from "../typings/conrtoller";
 import returnBody from "../utils/returnBody";
 
 export default class ArticleController {
-  static async show(ctx) {
+  static async show(ctx: Koa.DefaultContext) {
     try {
       const { id } = ctx.params;
-      // const { page, page_size, order } = ctx.query;
+      const { page, page_size, order } = ctx.request.body;
       const res = id
         ? await articleService.getArticleDetail(parseInt(id))
-        : await articleService.getArticleList();
+        : await articleService.getArticleList(page, page_size, order);
       returnBody(ctx, 200, res);
     } catch (error) {
       returnBody(ctx, 404);
     }
   }
 
-  static async create(ctx) {
+  static async create(ctx: Koa.DefaultContext) {
     try {
-      const { title, content } = ctx.query;
+      console.log("ctx", ctx);
+      const { title, content } = ctx.request.body;
       const res = await articleService.insertArticle(title, content);
       returnBody(ctx, 200, res);
     } catch (error) {
@@ -26,7 +27,7 @@ export default class ArticleController {
     }
   }
 
-  static async delete(ctx) {
+  static async delete(ctx: Koa.DefaultContext) {
     try {
       const { id } = ctx.params;
       const res = await articleService.deleteArticle(id);
@@ -36,13 +37,14 @@ export default class ArticleController {
     }
   }
 
-  static async update(ctx) {
+  static async update(ctx: Koa.DefaultContext) {
     try {
       const { id } = ctx.params;
-      const { title, content } = ctx.query;
+      const { title, content } = ctx.request.body;
       const res = await articleService.updateArticle(id, title, content);
       returnBody(ctx, 200, res);
     } catch (error) {
+      console.log("error :", error);
       returnBody(ctx, 404);
     }
   }

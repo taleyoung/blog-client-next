@@ -1,7 +1,7 @@
 export default function returnBody(
   ctx,
   status: number,
-  data: { [key: string]: string } = {},
+  data: any = {},
   err: string = ""
 ) {
   console.log("data", data);

@@ -47,7 +47,7 @@ const Article: SFC<Props> = props => {
     const data = {
       title,
       content,
-      tags
+      tags: []
     };
     await props.updateArticle(id, data);
     setLoading(false);

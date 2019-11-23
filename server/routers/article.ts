@@ -4,8 +4,8 @@ const article = new Router({ prefix: "/article" });
 import ArticleController from "../controllers/article";
 
 article.get("/:id?", ArticleController.show);
-article.post(`/`, ArticleController.create);
-article.delete(`/:id`, ArticleController.delete);
-article.put(`/:id`, ArticleController.update);
+article.post("/", ArticleController.create);
+article.delete("/:id", ArticleController.delete);
+article.put("/:id", ArticleController.update);
 
 export default article;

@@ -13,16 +13,6 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = new Koa();
 
-  // router.get("/a/:id", async ctx => {
-  //   const id = ctx.params.id;
-  //   await handle(ctx.req, ctx.res, {
-  //     pathname: "/a",
-  //     query: {
-  //       id
-  //     }
-  //   });
-  // });
-
   server
     .use(cors())
     .use(bodyParser())
@@ -32,7 +22,6 @@ app.prepare().then(() => {
 
   server.use(async (ctx, next) => {
     await handle(ctx.req, ctx.res);
-    console.log("jinlaile :");
     ctx.respond = false;
     await next();
   });
