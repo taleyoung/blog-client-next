@@ -19,7 +19,7 @@ const Overview: SFC<Props> & Next = props => {
   console.log("props :", props);
   // const [loading, setLoading] = useState(true);
   const { articleList } = props;
-  const { total, data } = articleList;
+  const { total, data = [] } = articleList;
 
   useEffect(() => {
     const getArticles = async () => {

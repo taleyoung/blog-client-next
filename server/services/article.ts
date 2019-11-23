@@ -1,21 +1,35 @@
 import * as articleModel from "../models/article";
-import { GET_ARTICLE_DETAIL } from "@client/redux/action-types";
 
 const getArticleList = async () => {
-  const res = await articleModel.getAllArticles();
+  const res = await articleModel.getArticleList();
   console.log("service中的article");
+  return { data: res };
+};
+
+const getArticleDetail = async (id: number) => {
+  const res = await articleModel.getArticleById(id);
+  console.log("getArticleDetail------res", res);
   return res;
 };
 
-const getArticleDetail = async () => {};
+const insertArticle = async (title: string, content: string) => {
+  const res = await articleModel.create(title, content, []);
+  return res;
+};
 
-const getTagsByArticleId = async (articleId: number | string) => {};
+const deleteArticle = async (id: number) => {
+  const res = await articleModel._delete(id);
+  return res;
+};
 
-const getTagNameById = async (id: number) => {};
-
-const insertArticle = async (title: string, content: string) => {};
-
-const deleteArticle = async (id: number) => {};
-
-const updateArticle = async () => {};
-export default { getArticleList, getArticleDetail };
+const updateArticle = async (id: number, title: string, content: string) => {
+  const res = await articleModel.update(id, title, content);
+  return res;
+};
+export default {
+  getArticleList,
+  getArticleDetail,
+  insertArticle,
+  deleteArticle,
+  updateArticle
+};

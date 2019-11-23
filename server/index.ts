@@ -12,7 +12,6 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = new Koa();
-  // const router = new Router();
 
   // router.get("/a/:id", async ctx => {
   //   const id = ctx.params.id;
@@ -33,6 +32,7 @@ app.prepare().then(() => {
 
   server.use(async (ctx, next) => {
     await handle(ctx.req, ctx.res);
+    console.log("jinlaile :");
     ctx.respond = false;
     await next();
   });
