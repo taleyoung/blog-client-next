@@ -16,11 +16,10 @@ export default class ArticleController {
     }
   }
 
-  static async create(ctx: Koa.DefaultContext) {
+  static async add(ctx: Koa.DefaultContext) {
     try {
-      console.log("ctx", ctx);
-      const { title, content } = ctx.request.body;
-      const res = await articleService.insertArticle(title, content);
+      const { title, content, tags } = ctx.request.body;
+      const res = await articleService.insertArticle(title, content, tags);
       returnBody(ctx, 200, res);
     } catch (error) {
       returnBody(ctx, 404);

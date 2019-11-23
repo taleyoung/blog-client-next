@@ -20,7 +20,7 @@ const getArticleList = async (
     const res: Array<ArticleModel> = await articleModel.getArticleList(
       page_size,
       offset,
-      order
+      true
     );
     let list: Array<ArticleScheme> = [];
     res.forEach(item => {
@@ -54,14 +54,25 @@ const getArticleDetail = async (id: number) => {
   }
 };
 
-const insertArticle = async (title: string, content: string) => {
-  const res = await articleModel.create(title, content);
+const insertArticle = async (title: string, content: string, tags: []) => {
+  const res = await articleModel.insert(title, content);
+  console.log("res :", res);
+  await Promise.all(
+    tags.map(async tag => {
+      await articleModel.addTagArticle(tag, res.insertId);
+    })
+  );
   return res;
 };
 
 const deleteArticle = async (id: number) => {
-  const res = await articleModel._delete(id);
-  return res;
+  try {
+    const res = await articleModel._delete(id);
+    await articleModel.deleteTagArticleById(id);
+    return res;
+  } catch (error) {
+    console.log("error", error);
+  }
 };
 
 const updateArticle = async (id: number, title: string, content: string) => {
