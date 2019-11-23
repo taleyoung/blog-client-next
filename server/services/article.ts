@@ -56,7 +56,6 @@ const getArticleDetail = async (id: number) => {
 
 const insertArticle = async (title: string, content: string, tags: []) => {
   const res = await articleModel.insert(title, content);
-  console.log("res :", res);
   await Promise.all(
     tags.map(async tag => {
       await articleModel.addTagArticle(tag, res.insertId);
@@ -75,10 +74,17 @@ const deleteArticle = async (id: number) => {
   }
 };
 
-const updateArticle = async (id: number, title: string, content: string) => {
+const updateArticle = async (
+  id: number,
+  title: string,
+  content: string,
+  tags?: Array<string>
+) => {
   try {
     const res = await articleModel.update(id, title, content);
-    return res;
+    if (res.affectedRows === 1) {
+      return await getArticleDetail(id);
+    }
   } catch (err) {
     console.log("err", err);
   }

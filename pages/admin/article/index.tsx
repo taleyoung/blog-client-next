@@ -4,7 +4,7 @@ import { Input, Button, Tag, Modal } from "antd";
 import { withRouter } from "next/router";
 
 import { fetchArticleDetail, updateArticle } from "@redux/actions/article";
-import { Store, ArticleDetail } from "@client/types/store";
+import { Store, ArticleDetail } from "@client/typings/store";
 import BreadCrumb from "@components/BreadCrumb";
 
 const { TextArea } = Input;

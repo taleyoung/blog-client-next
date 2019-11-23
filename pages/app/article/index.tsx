@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 // import CodeBlock from "@utils/codeBlock";
 import { fetchArticleDetail } from "@redux/actions/article";
-import { Store, ArticleDetail } from "@client/types/store";
+import { Store, ArticleDetail } from "@client/typings/store";
 import css from "styled-jsx/css";
 import ArticleInfo from "@components/ArticleInfo";
 

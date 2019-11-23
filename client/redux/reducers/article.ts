@@ -1,5 +1,5 @@
 import * as actionTypes from "../action-types";
-import { Article } from "../../types/store";
+import { Article } from "../../typings/store";
 import { Action } from "@utils/createAction";
 
 let initState: Article = {

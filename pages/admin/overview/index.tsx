@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Table, Popconfirm, Tag } from "antd";
 import Router from "next/router";
 import { fetchArticleList, deleteArticle } from "@redux/actions/article";
-import { Store, ArticleDetail, ArticleList } from "@client/types/store";
+import { Store, ArticleDetail, ArticleList } from "@client/typings/store";
+import { Next } from "@client/typings/next";
 import BreadCrumb from "@components/BreadCrumb";
 
 interface Props {
@@ -11,11 +12,13 @@ interface Props {
   fetchArticleList: typeof fetchArticleList;
   deleteArticle: typeof deleteArticle;
 }
+
 interface ArticleListTable extends ArticleDetail {
   key: string;
 }
-const Overview: SFC<Props> = props => {
-  const [loading, setLoading] = useState(true);
+const Overview: SFC<Props> & Next = props => {
+  console.log("props :", props);
+  const [loading, setLoading] = useState(false);
   const [tableData, setData] = useState([]);
   const { articleList } = props;
   const { total, data = [] } = articleList;
@@ -92,13 +95,13 @@ const Overview: SFC<Props> = props => {
     Router.push(`/admin/article?id=${id}`);
   };
 
-  useEffect(() => {
-    const getArticles = async () => {
-      await props.fetchArticleList();
-      setLoading(false);
-    };
-    getArticles();
-  }, []);
+  // useEffect(() => {
+  //   const getArticles = async () => {
+  //     await props.fetchArticleList();
+  //     setLoading(false);
+  //   };
+  //   getArticles();
+  // }, []);
 
   useEffect(() => {
     let tableData: Array<ArticleListTable> = data.map(item => ({
@@ -128,6 +131,14 @@ const Overview: SFC<Props> = props => {
       />
     </div>
   );
+};
+
+Overview.getInitialProps = async () => {
+  const res = await fetchArticleList();
+  console.log("res :", res);
+  return {
+    testres: res
+  };
 };
 
 export default connect(

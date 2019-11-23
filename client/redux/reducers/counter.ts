@@ -1,4 +1,4 @@
-import { Counter } from "../../types/store";
+import { Counter } from "../../typings/store";
 import { Action } from "../actions/counter";
 import * as actionTypes from "../action-types";
 

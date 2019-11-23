@@ -39,8 +39,8 @@ export default class ArticleController {
   static async update(ctx: Koa.DefaultContext) {
     try {
       const { id } = ctx.params;
-      const { title, content } = ctx.request.body;
-      const res = await articleService.updateArticle(id, title, content);
+      const { title, content, tags } = ctx.request.body;
+      const res = await articleService.updateArticle(id, title, content, tags);
       returnBody(ctx, 200, res);
     } catch (error) {
       console.log("error :", error);

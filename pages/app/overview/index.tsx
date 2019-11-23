@@ -2,9 +2,10 @@ import React, { SFC, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Router from "next/router";
 import { Pagination, Spin } from "antd";
-import { Store, ArticleList } from "@client/types/store";
+import { Store, ArticleList } from "@client/typings/store";
 import Preview from "@client/components/Preview";
 import { fetchArticleList } from "@client/redux/actions/article";
+import "isomorphic-fetch";
 
 interface Props {
   articleList: ArticleList;
