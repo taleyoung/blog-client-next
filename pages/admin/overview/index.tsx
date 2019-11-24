@@ -95,13 +95,13 @@ const Overview: SFC<Props> & Next = props => {
     Router.push(`/admin/article?id=${id}`);
   };
 
-  // useEffect(() => {
-  //   const getArticles = async () => {
-  //     await props.fetchArticleList();
-  //     setLoading(false);
-  //   };
-  //   getArticles();
-  // }, []);
+  useEffect(() => {
+    const getArticles = async () => {
+      await props.fetchArticleList();
+      setLoading(false);
+    };
+    getArticles();
+  }, []);
 
   useEffect(() => {
     let tableData: Array<ArticleListTable> = data.map(item => ({

@@ -1,11 +1,15 @@
 import React, { useState, SFC } from "react";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
+import Router from "next/router";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 const AppSider: SFC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const addArticle = () => {
+    Router.push(`/admin/article?id=${-1}`);
+  };
   return (
     <Sider
       collapsible
@@ -24,7 +28,9 @@ const AppSider: SFC = () => {
           }
         >
           <Menu.Item key="1">文章列表</Menu.Item>
-          <Menu.Item key="2">新增文章</Menu.Item>
+          <Menu.Item key="2" onClick={addArticle}>
+            新增文章
+          </Menu.Item>
         </SubMenu>
         <Menu.Item key="3">
           <Icon type="file" />

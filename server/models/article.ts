@@ -55,7 +55,7 @@ const _delete = async (id: number) => {
   }
 };
 
-const addTagArticle = async (tagName: number, articleId: number) => {
+const addTagArticle = async (tagName: string, articleId: number) => {
   const _sql = `INSERT INTO tag_article(tag_id, article_id) 
                 VALUES((SELECT tag.id FROM tag WHERE name=?),?)`;
   return db.query(_sql, [tagName, articleId]);

@@ -3,9 +3,14 @@ import { connect } from "react-redux";
 import { Input, Button, Tag, Modal } from "antd";
 import { withRouter } from "next/router";
 
-import { fetchArticleDetail, updateArticle } from "@redux/actions/article";
+import {
+  fetchArticleDetail,
+  updateArticle,
+  addArticle
+} from "@redux/actions/article";
 import { Store, ArticleDetail } from "@client/typings/store";
 import BreadCrumb from "@components/BreadCrumb";
+import myApi from "@utils/myApi";
 
 const { TextArea } = Input;
 
@@ -14,13 +19,14 @@ interface Props {
   match: { params: { id: string } };
   fetchArticleDetail: typeof fetchArticleDetail;
   updateArticle: typeof updateArticle;
+  addArticle: typeof addArticle;
   router: any;
 }
 
 const Article: SFC<Props> = props => {
-  console.log("props :", props);
   const { article, router } = props;
   const id = parseInt(router.query.id);
+  const isNew = id === -1 ? true : false;
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -29,8 +35,20 @@ const Article: SFC<Props> = props => {
   const [newTag, setNewTag] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
 
+  const [allTags, setAllTags] = useState([{ id: "", name: "" }]);
+
   useEffect(() => {
     const fetch = async () => {
+      const res = await myApi("tag");
+      console.log("res", res);
+      setAllTags(res);
+      console.log("allTags", allTags);
+      if (isNew) {
+        setTitle("");
+        setContent("");
+        setTags([]);
+        return;
+      }
       await props.fetchArticleDetail(id);
     };
     fetch();
@@ -47,9 +65,9 @@ const Article: SFC<Props> = props => {
     const data = {
       title,
       content,
-      tags: []
+      tags
     };
-    await props.updateArticle(id, data);
+    isNew ? await props.addArticle(data) : await props.updateArticle(id, data);
     setLoading(false);
   };
 
@@ -75,7 +93,7 @@ const Article: SFC<Props> = props => {
             添加书签
           </Button>
           <Modal
-            title="添加书签"
+            title="添加标签"
             visible={modal}
             onOk={() => addTag()}
             onCancel={() => setModal(false)}
@@ -87,16 +105,29 @@ const Article: SFC<Props> = props => {
             ></Input>
           </Modal>
         </div>
-        <div className="title">分类</div>
+        <div className="title">全部标签</div>
+        {allTags.map(tag => (
+          <Tag key={tag.id} color="green">
+            {tag.name}
+          </Tag>
+        ))}
         <div className="title">内容</div>
         <TextArea
           value={content}
           onChange={e => setContent(e.target.value)}
           className="textArea"
+          style={{ height: "200px" }}
         ></TextArea>
-        <Button type="primary" loading={loading} onClick={submitChange}>
-          提交
-        </Button>
+        <div className="btn">
+          <Button
+            icon="thunderbolt"
+            type="primary"
+            loading={loading}
+            onClick={submitChange}
+          >
+            提交
+          </Button>
+        </div>
       </div>
       <style jsx>
         {`
@@ -109,12 +140,18 @@ const Article: SFC<Props> = props => {
             width: 50%;
           }
           .textArea {
-            height: 300px;
+            height: 400px;
           }
-
           .tag {
             display: flex;
             justify-content: flex-start;
+          }
+          .btn {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-start;
+            width: 100px;
+            padding: 10px auto 10px auto;
           }
         `}
       </style>
@@ -129,7 +166,8 @@ export default withRouter(
     }),
     {
       fetchArticleDetail,
-      updateArticle
+      updateArticle,
+      addArticle
     }
   )(Article)
 );

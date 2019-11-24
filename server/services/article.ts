@@ -27,7 +27,7 @@ const getArticleList = async (
       list.push({
         id: item.id,
         title: item.title,
-        content: item.content,
+        content: item.content.slice(0, 60) + "...",
         updatedAt: dayjs(item.updated_at).format("YYYY-MM-DD HH:MM"),
         tags: item.tags.split(",")
       });
@@ -54,14 +54,25 @@ const getArticleDetail = async (id: number) => {
   }
 };
 
-const insertArticle = async (title: string, content: string, tags: []) => {
-  const res = await articleModel.insert(title, content);
-  await Promise.all(
-    tags.map(async tag => {
-      await articleModel.addTagArticle(tag, res.insertId);
-    })
-  );
-  return res;
+const insertArticle = async (
+  title: string,
+  content: string,
+  tags: Array<string>
+) => {
+  try {
+    const res = await articleModel.insert(title, content);
+    await Promise.all(
+      tags.map(async tag => {
+        await articleModel.addTagArticle(tag, res.insertId);
+      })
+    );
+    if (res.affectedRows === 1) {
+      return await getArticleDetail(res.insertId);
+    }
+    return {};
+  } catch (error) {
+    console.log("error :", error);
+  }
 };
 
 const deleteArticle = async (id: number) => {

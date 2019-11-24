@@ -29,6 +29,11 @@ export default function article(state = initState, action: Action): Article {
         ...state,
         articleDetail: payload
       };
+    case actionTypes.ADD_ARTICLE:
+      return {
+        ...state,
+        articleDetail: payload
+      };
     case actionTypes.DELETE_ARTICLE:
       return {
         ...state,
