@@ -1,10 +1,9 @@
 import React from "react";
 import { Timeline, Icon } from "antd";
-import style from "./style.less";
 
 const TimeLine = () => {
   return (
-    <div className={style.container}>
+    <div className="container">
       <Timeline mode="alternate" reverse={true}>
         <Timeline.Item>
           2017-09 | 开始入门编程，学习c语言和基本算法{" "}
@@ -28,6 +27,14 @@ const TimeLine = () => {
         </Timeline.Item>
         <Timeline.Item>2019-07 ｜ 字节跳动前端开发实习</Timeline.Item>
       </Timeline>
+      <style jsx>
+        {`
+          .container {
+            margin: 50px 50px 0 80px;
+            width: 500px;
+          }
+        `}
+      </style>
     </div>
   );
 };
