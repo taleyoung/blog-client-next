@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const siderLayout = { xxl: 6, xl: 6, lg: 6, sm: 0, xs: 0 };
-const contentLayout = { xxl: 15, xl: 14, lg: 14, sm: 24, xs: 24 };
+const contentLayout = { xxl: 15, xl: 18, lg: 18, sm: 24, xs: 24 };
 
 const AppLayout: SFC<Props> = props => {
   return (

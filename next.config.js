@@ -36,7 +36,3 @@ module.exports = withCss({
   }
   // })
 });
-
-// webpack(config, options){
-//     return config
-// }
