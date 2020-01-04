@@ -37,13 +37,23 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
       root: {
         display: "flex"
       },
+      appBar: {
+        zIndex: theme.zIndex.drawer + 1
+      },
       drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        bottomTop: "100px"
+        [theme.breakpoints.up("sm")]: {
+          width: drawerWidth,
+          flexShrink: 0
+        }
       },
       drawerPaper: {
         width: drawerWidth
+      },
+      content: {
+        flexGrow: 1,
+        padding: theme.spacing(3)
       },
       toolbar: theme.mixins.toolbar
     })
@@ -57,10 +67,8 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
       classes={{
         paper: classes.drawerPaper
       }}
-      anchor="left"
     >
       <div className={classes.toolbar} />
-      <Divider />
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>

@@ -1,4 +1,4 @@
-import React, { SFC, useEffect } from "react";
+import React, { SFC, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import marked from "marked";
@@ -8,6 +8,8 @@ import { fetchArticleDetail } from "@redux/actions/article";
 import { Store, ArticleDetail } from "@client/typings/store";
 import css from "styled-jsx/css";
 import ArticleInfo from "@components/ArticleInfo";
+import Loading from "@components/Loading";
+import Fade from "@material-ui/core/Fade";
 
 import Tocify from "./tocify";
 
@@ -21,6 +23,7 @@ interface Props {
 }
 
 const Article: SFC<Props> = props => {
+  const [loading, setloading] = useState(true);
   const { title, content, updatedAt, tags = [] } = props.article;
   const tocify = new Tocify();
   const renderer = new marked.Renderer();
@@ -42,19 +45,25 @@ const Article: SFC<Props> = props => {
   }, []);
 
   return (
-    <div className="container">
-      <div className="content-wrap">
-        <div className="title">{title}</div>
-        <ArticleInfo
-          time={updatedAt}
-          tags={tags}
-          archives={["33", "44"]}
-        ></ArticleInfo>
-        <div className="content" dangerouslySetInnerHTML={{ __html: output }} />
+    <Fade in={loading}>
+      <div className="container">
+        <div className="content-wrap">
+          <div className="title">{title}</div>
+          <ArticleInfo
+            time={updatedAt}
+            tags={tags}
+            archives={["33", "44"]}
+          ></ArticleInfo>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{ __html: output }}
+          />
+        </div>
+        <div className="toc">{tocify && tocify.render()}</div>
+        <style jsx>{style}</style>
+        {/* <Loading></Loading> */}
       </div>
-      <div className="toc">{tocify && tocify.render()}</div>
-      <style jsx>{style}</style>
-    </div>
+    </Fade>
   );
 };
 

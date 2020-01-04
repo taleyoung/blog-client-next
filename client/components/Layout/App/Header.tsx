@@ -7,50 +7,53 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 // import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
 
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton
-} from "@material-ui/core";
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 
 interface Props {}
 const Header: SFC<Props> = () => {
+  const drawerWidth = 200;
   const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
-      root: {
-        flexGrow: 1
+      appBar: {
+        [theme.breakpoints.up("sm")]: {
+          // width: `calc(100% - ${drawerWidth}px)`
+          // marginLeft: drawerWidth
+        },
+        zIndex: theme.zIndex.drawer + 1
       },
       menuButton: {
-        marginRight: theme.spacing(2)
-      },
-      title: {
-        flexGrow: 1
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up("sm")]: {
+          display: "none"
+        }
       }
     })
   );
   const classes = useStyles();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" noWrap>
+          Taleyoung
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 export default Header;
