@@ -4,6 +4,8 @@ import { withRouter } from "next/router";
 import Layout from "@components/Layout/App";
 import AdminLayout from "@components/Layout/Admin";
 import withReduxStore from "@utils/withRedux";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "@utils/theme";
 
 import "antd/dist/antd.css";
 
@@ -11,6 +13,13 @@ interface Props {
   reduxStore: any;
 }
 class MyApp extends App<Props> {
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    // const jssStyles = document.querySelector("#jss-server-side");
+    // if (jssStyles) {
+    //   jssStyles.parentElement.removeChild(jssStyles);
+    // }
+  }
   isAppLayout(pathname) {
     const arr = pathname.split("/");
     return !(arr[1] === "admin");
@@ -28,7 +37,11 @@ class MyApp extends App<Props> {
   }
   render() {
     const { reduxStore } = this.props;
-    return <Provider store={reduxStore}>{this.renderLayout()}</Provider>;
+    return (
+      <Provider store={reduxStore}>
+        <ThemeProvider theme={theme}>{this.renderLayout()}</ThemeProvider>
+      </Provider>
+    );
   }
 }
 

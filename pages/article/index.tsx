@@ -25,9 +25,10 @@ interface Props {
 const Article: SFC<Props> = props => {
   const [loading, setloading] = useState(true);
   const { title, content, updatedAt, tags = [] } = props.article;
+
   const tocify = new Tocify();
   const renderer = new marked.Renderer();
-  renderer.heading = function(text, level, raw) {
+  renderer.heading = function(text, level) {
     const anchor = tocify.add(text, level);
     return `<div id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></div>\n`;
   };
@@ -43,7 +44,6 @@ const Article: SFC<Props> = props => {
     };
     getArticle();
   }, []);
-
   return (
     <Fade in={loading}>
       <div className="container">

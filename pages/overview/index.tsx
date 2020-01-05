@@ -30,7 +30,7 @@ const Overview: SFC<Props> & Next = props => {
   }, []);
 
   const toArticleDetail = (id: number) => {
-    Router.push(`/app/article?id=${id}`);
+    Router.push(`/article?id=${id}`);
   };
 
   const pageChange = async (page: number) => {
