@@ -7,7 +7,15 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 // import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
 
-import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  Button
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 interface Props {}
@@ -15,16 +23,23 @@ const Header: SFC<Props> = () => {
   const drawerWidth = 200;
   const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
+      root: {
+        flexGrow: 1
+      },
       appBar: {
-        [theme.breakpoints.up("sm")]: {
-          // width: `calc(100% - ${drawerWidth}px)`
-          // marginLeft: drawerWidth
-        },
         zIndex: theme.zIndex.drawer + 1
       },
       menuButton: {
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("md")]: {
+          display: "none"
+        }
+      },
+      title: {
+        flexGrow: 1
+      },
+      menu: {
+        [theme.breakpoints.down("sm")]: {
           display: "none"
         }
       }
@@ -37,23 +52,59 @@ const Header: SFC<Props> = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const isMobileMenuOpen = true;
+
+  const renderMobileMenu = (
+    <Menu
+      // anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      // id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      // onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <Button color="inherit">文章归档</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button color="inherit">关于我</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button color="inherit">登录</Button>
+      </MenuItem>
+    </Menu>
+  );
+
   return (
-    <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" noWrap>
-          Taleyoung
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <div className={classes.root}>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            color="textPrimary"
+            className={classes.title}
+          >
+            Taleyoung
+          </Typography>
+          <Typography className={classes.menu}>
+            <Button color="inherit">文章归档</Button>
+            <Button color="inherit">关于我</Button>
+            <Button color="inherit">登录</Button>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 export default Header;

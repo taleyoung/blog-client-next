@@ -1,13 +1,12 @@
 import React, { SFC, useState, useEffect } from "react";
-import { Avatar, Divider, Tag } from "antd";
 import myApi from "@utils/myApi";
-// import avatar1 from "@static/img/avatar1.jpeg";
 
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-// import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
+import Hidden from "@material-ui/core/Hidden";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -34,43 +33,25 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
 
   const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
-      root: {
-        display: "flex"
-      },
-      appBar: {
-        zIndex: theme.zIndex.drawer + 1
-      },
       drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("md")]: {
           width: drawerWidth,
           flexShrink: 0
         }
       },
+      toolbar: theme.mixins.toolbar,
       drawerPaper: {
         width: drawerWidth
-      },
-      content: {
-        flexGrow: 1,
-        padding: theme.spacing(3)
-      },
-      toolbar: theme.mixins.toolbar
+      }
     })
   );
   const classes = useStyles();
-
-  return (
-    <Drawer
-      className={classes.drawer}
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper
-      }}
-    >
+  const drawer = (
+    <div>
       <div className={classes.toolbar} />
+      <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["前端", "算法", "后端", "随笔"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -90,7 +71,22 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
           </ListItem>
         ))}
       </List>
-    </Drawer>
+    </div>
+  );
+  return (
+    <nav className={classes.drawer} aria-label="mailbox folders">
+      <Hidden smDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          variant="permanent"
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </nav>
     // <div className="container">
     //   {/* <Avatar
     //     src="/static/img/avatar1.jpeg"

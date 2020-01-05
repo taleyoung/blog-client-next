@@ -5,7 +5,6 @@ import { Pagination, Spin } from "antd";
 import { Store, ArticleList } from "@client/typings/store";
 import Preview from "@client/components/Preview";
 import { fetchArticleList } from "@client/redux/actions/article";
-import "isomorphic-fetch";
 
 interface Props {
   articleList: ArticleList;
