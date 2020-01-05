@@ -3,6 +3,8 @@ import Header from "./Header";
 import SiderBar from "./SiderBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Zoom from "@material-ui/core/Zoom";
+import TransitionWrap from "@components/TransitionWrap";
 
 const useStyles: any = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,8 +13,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     },
     toolbar: theme.mixins.toolbar,
     content: {
-      // flexGrow: 1,
-      // padding: theme.spacing(3)
+      flexGrow: 1
     }
   })
 );
@@ -29,7 +30,9 @@ const AppLayout: SFC<Props> = props => {
       <SiderBar></SiderBar>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {/* <TransitionWrap>  */}
         {props.children}
+        {/* </TransitionWrap> */}
       </main>
     </div>
   );

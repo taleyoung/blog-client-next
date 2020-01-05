@@ -1,16 +1,16 @@
 import React, { SFC } from "react";
-import { Spin } from "antd";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Loading: SFC = () => (
   <div className="container">
-    <Spin size="large"></Spin>
+    <CircularProgress color="secondary" />
     <style jsx>{`
       .container {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 600px;
+        height: 400px;
       }
     `}</style>
   </div>

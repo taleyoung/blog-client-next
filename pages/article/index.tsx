@@ -41,11 +41,16 @@ const Article: SFC<Props> = props => {
   useEffect(() => {
     const getArticle = async () => {
       await props.fetchArticleDetail(parseInt(props.router.query.id));
+      setloading(false);
     };
     getArticle();
   }, []);
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
-    <Fade in={loading}>
+    // <Fade in={loading}>
+    <div>
       <div className="container">
         <div className="content-wrap">
           <div className="title">{title}</div>
@@ -61,9 +66,9 @@ const Article: SFC<Props> = props => {
         </div>
         <div className="toc">{tocify && tocify.render()}</div>
         <style jsx>{style}</style>
-        {/* <Loading></Loading> */}
       </div>
-    </Fade>
+    </div>
+    // </Fade>
   );
 };
 
@@ -77,6 +82,10 @@ export default withRouter(
 );
 
 const style = css`
+  .loading {
+    position: absolute;
+    top: 500px;
+  }
   .container {
     display: flex;
   }
@@ -90,7 +99,6 @@ const style = css`
     margin: 30px 90px 0px 90px;
     padding: 10px;
     border-radius: 20px;
-    /* background: #f5f5d5; */
   }
 
   .title {
