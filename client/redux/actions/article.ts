@@ -2,7 +2,9 @@ import * as actionTypes from "../action-types";
 import { createActionAsync } from "../../utils/createAction";
 import { SubmitArticleScheme } from "../../typings/index";
 
-const url = "http://127.0.0.1:3000/api/v1/article";
+// const HOST = '127.0.0.1';
+const HOST = "http://api.taleyoung.top";
+const url = `${HOST}/api/v1/article`;
 
 export const fetchArticleList = (
   page: number = 1,

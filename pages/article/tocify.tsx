@@ -78,7 +78,6 @@ export default class Tocify {
   render() {
     return (
       <Anchor style={{ padding: 24, marginTop: "35px" }} affix showInkInFixed>
-        <h2>索引</h2>
         {this.renderToc(this.tocItems)}
       </Anchor>
     );

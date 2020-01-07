@@ -8,7 +8,6 @@ let initState: Article = {
 };
 
 export default function article(state = initState, action: Action): Article {
-  console.log("action :", action);
   const { type, payload } = action;
   switch (type) {
     case actionTypes.GET_ARTICLE_LIST:

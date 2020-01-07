@@ -34,7 +34,6 @@ const Preview: SFC<Props> = ({ id, title, content, tags, time, toDetail }) => (
         ></ArticleInfo>
       </div>
     </div>
-    <Divider style={{ color: "#fddb60" }}></Divider>
     <style jsx>{style}</style>
   </div>
 );

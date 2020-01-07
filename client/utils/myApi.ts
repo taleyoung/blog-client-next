@@ -1,6 +1,7 @@
-const rootUrl = "http://127.0.0.1:3000/api/v1";
 import { message } from "antd";
+import fetch from "isomorphic-fetch";
 
+const rootUrl = "http://api.taleyoung.top/api/v1";
 const myApi = async (url: string, method?: string, data?: any) => {
   try {
     method = method ? method : "get";

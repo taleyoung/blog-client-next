@@ -106,11 +106,13 @@ const Article: SFC<Props> = props => {
           </Modal>
         </div>
         <div className="title">全部标签</div>
-        {allTags.map(tag => (
-          <Tag key={tag.id} color="green">
-            {tag.name}
-          </Tag>
-        ))}
+        {allTags
+          ? allTags.map(tag => (
+              <Tag key={tag.id} color="green">
+                {tag.name}
+              </Tag>
+            ))
+          : ""}
         <div className="title">内容</div>
         <TextArea
           value={content}

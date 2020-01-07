@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { message } from "antd";
-
+import fetch from "isomorphic-fetch";
 export interface Action {
   type: string;
   payload?: any;

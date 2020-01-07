@@ -1,30 +1,29 @@
 import React, { SFC, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "next/router";
 import marked from "marked";
 import hljs from "highlight.js";
 
-import { fetchArticleDetail } from "@redux/actions/article";
-import { Store, ArticleDetail } from "@client/typings/store";
+import { ArticleDetail } from "@client/typings/store";
 import css from "styled-jsx/css";
 import ArticleInfo from "@components/ArticleInfo";
 import Loading from "@components/Loading";
 import Fade from "@material-ui/core/Fade";
+import myApi from "@utils/myApi";
 
 import Tocify from "./tocify";
 
 import "highlight.js/styles/atelier-forest-dark.css";
-
+import useTocify from "@utils/useTocify";
 interface Props {
   article: ArticleDetail;
-  match: { params: { id: string } };
-  fetchArticleDetail: typeof fetchArticleDetail;
-  router: any;
+}
+interface Next {
+  getInitialProps: any;
 }
 
-const Article: SFC<Props> = props => {
+const Article: SFC<Props> & Next = props => {
   const [loading, setloading] = useState(true);
   const { title, content, updatedAt, tags = [] } = props.article;
+  // const { tocify, output, setOutput } = useTocify("");
 
   const tocify = new Tocify();
   const renderer = new marked.Renderer();
@@ -39,12 +38,11 @@ const Article: SFC<Props> = props => {
   const output = marked(content);
 
   useEffect(() => {
-    const getArticle = async () => {
-      await props.fetchArticleDetail(parseInt(props.router.query.id));
-      setloading(false);
-    };
-    getArticle();
-  }, []);
+    setloading(false);
+    // setOutput(content);
+  }, [props.article]);
+  console.log("output :", output);
+
   if (loading) {
     return <Loading></Loading>;
   }
@@ -72,14 +70,12 @@ const Article: SFC<Props> = props => {
   );
 };
 
-export default withRouter(
-  connect(
-    (state: Store) => ({
-      article: state.article.articleDetail
-    }),
-    { fetchArticleDetail }
-  )(Article)
-);
+Article.getInitialProps = async ({ query }) => {
+  const res = await myApi(`article/${query.id}`);
+  return { article: res };
+};
+
+export default Article;
 
 const style = css`
   .loading {
