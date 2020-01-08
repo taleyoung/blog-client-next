@@ -13,14 +13,6 @@ interface Props {
   reduxStore: any;
 }
 class MyApp extends App<Props> {
-  // static async getInitialProps() {
-  //   const res = myApi("category");
-  //   return {
-  //     pageProps: {
-  //       category: res
-  //     }
-  //   };
-  // }
   componentDidMount() {
     // Remove the server-side injected CSS.
     // const jssStyles = document.querySelector("#jss-server-side");

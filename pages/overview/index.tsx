@@ -1,8 +1,10 @@
 import React from "react";
 import { NextPage } from "next";
-import Router, { withRouter } from "next/router";
-import { Pagination, Spin } from "antd";
+import Router from "next/router";
+import Link from "next/link";
+import { Pagination, Spin, List, Avatar } from "antd";
 import { ArticleList } from "@client/typings/store";
+import ArticleInfo from "@components/ArticleInfo";
 import ArticleCard from "@client/components/ArticleCard";
 import myApi from "@utils/myApi";
 interface Props {
@@ -29,27 +31,46 @@ const Overview: NextPage<Props> = props => {
   return (
     <div className="container">
       <Spin spinning={false}>
-        {data.map((item, index) => (
-          <div key={`${item.title}${index}`}>
-            {/* <Preview
-              id={item.id}
-              title={item.title}
-              content={item.content}
-              tags={item.tags}
-              time={item.updatedAt}
-              toDetail={toArticleDetail}
-            ></Preview> */}
-            <ArticleCard
-              id={item.id}
-              title={item.title}
-              content={item.content}
-              tags={item.tags}
-              time={item.updatedAt}
-              category={item.category}
-              toDetail={toArticleDetail}
-            ></ArticleCard>
-          </div>
-        ))}
+        <List
+          itemLayout="vertical"
+          size="large"
+          dataSource={data}
+          renderItem={item => (
+            <List.Item
+              key={item.title}
+              actions={[
+                <ArticleInfo
+                  time={item.updatedAt}
+                  tags={item.tags}
+                  category={item.category}
+                ></ArticleInfo>
+              ]}
+              extra={
+                <img
+                  width={200}
+                  alt="logo"
+                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                />
+              }
+            >
+              <List.Item.Meta
+                // avatar={<Avatar src={item.avatar} />}
+                title={
+                  <Link
+                    href={{
+                      pathname: "/article",
+                      query: { id: item.id }
+                    }}
+                  >
+                    <a> {item.title}</a>
+                  </Link>
+                }
+                description={item.updatedAt}
+              />
+              {item.content}
+            </List.Item>
+          )}
+        />
         <Pagination
           pageSize={10}
           defaultCurrent={1}

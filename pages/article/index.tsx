@@ -19,7 +19,6 @@ interface Props {
 }
 
 const Article: NextPage<Props> = props => {
-  console.log("propsAA :", props);
   const [loading, setloading] = useState(true);
   const { title, content, updatedAt, tags = [], category } = props.article;
   // const { tocify, output, setOutput } = useTocify("");
@@ -40,7 +39,6 @@ const Article: NextPage<Props> = props => {
     setloading(false);
     // setOutput(content);
   }, [props.article]);
-  console.log("output :", output);
 
   if (loading) {
     return <Loading></Loading>;

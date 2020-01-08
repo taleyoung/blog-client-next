@@ -1,39 +1,28 @@
 import React, { SFC, ReactNode } from "react";
-import Header from "./Header";
+import MyHeader from "./Header";
 import SiderBar from "./SiderBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Zoom from "@material-ui/core/Zoom";
-import TransitionWrap from "@components/TransitionWrap";
+import { Layout } from "antd";
 
-const useStyles: any = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex"
-    },
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1
-    }
-  })
-);
+const { Content, Footer } = Layout;
 
 export interface Props {
   children: ReactNode;
 }
 const AppLayout: SFC<Props> = props => {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Header></Header>
-      <SiderBar></SiderBar>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {/* <TransitionWrap>  */}
-        {props.children}
-        {/* </TransitionWrap> */}
-      </main>
+    <div>
+      <Layout>
+        <MyHeader></MyHeader>
+        <Layout style={{ marginTop: "65px" }}>
+          <SiderBar></SiderBar>
+        </Layout>
+        <Layout style={{ marginLeft: "320px" }}>
+          <Content style={{ margin: "24px 16px 0" }}>{props.children}</Content>
+          <Footer style={{ textAlign: "center" }}>
+            Designed By taleyoung ❤️
+          </Footer>
+        </Layout>
+      </Layout>
     </div>
   );
 };

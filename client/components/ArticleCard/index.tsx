@@ -5,12 +5,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import css from "styled-jsx/css";
 
 import ArticleInfo from "@components/ArticleInfo";
+import { List, Avatar, Icon } from "antd";
 
 interface Props {
   id: number;
@@ -30,46 +31,54 @@ const ArticleCard: SFC<Props> = ({
   time,
   toDetail
 }) => {
+  const listData = [];
+  for (let i = 0; i < 23; i++) {
+    listData.push({
+      title,
+      // avatar:
+      //   "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+      content
+    });
+  }
+  const IconText = ({ type, text }) => (
+    <span>
+      <Icon type={type} style={{ marginRight: 8 }} />
+      {text}
+    </span>
+  );
   return (
     <div className="card">
-      <Card onClick={() => toDetail(id)}>
-        <CardHeader
-          avatar={
-            <Avatar
-              aria-label="recipe"
-              className="avatar"
-              style={{ background: "#556cd6" }}
-            >
-              {title.trim().slice(0, 1)}
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              {/* <MoreVertIcon /> */}
-            </IconButton>
-          }
-          title={title}
-          subheader={time}
-          className="header"
-        />
-        {/* <CardMedia
-          className="media"
-          image="/static/images/cards/paella.jpg"
-          title="Paella dish"
-        /> */}
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {content}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <ArticleInfo
-            time={time}
-            tags={tags}
-            category={category}
-          ></ArticleInfo>
-        </CardActions>
-      </Card>
+      <List
+        itemLayout="vertical"
+        size="large"
+        dataSource={listData}
+        renderItem={item => (
+          <List.Item
+            key={item.title}
+            actions={[
+              <ArticleInfo
+                time={time}
+                tags={tags}
+                category={category}
+              ></ArticleInfo>
+            ]}
+            extra={
+              <img
+                width={300}
+                alt="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              />
+            }
+          >
+            <List.Item.Meta
+              avatar={<Avatar src={item.avatar} />}
+              title={<a href={item.href}>{item.title}</a>}
+              description={item.description}
+            />
+            {item.content}
+          </List.Item>
+        )}
+      />
       <style jsx>{style}</style>
     </div>
   );
@@ -78,7 +87,7 @@ const ArticleCard: SFC<Props> = ({
 export default ArticleCard;
 
 const style = css`
-  .card {
+  /* .card {
     margin-bottom: 50px;
   }
   .card:hover {
@@ -93,5 +102,5 @@ const style = css`
   }
   .header {
     background: red;
-  }
+  } */
 `;
