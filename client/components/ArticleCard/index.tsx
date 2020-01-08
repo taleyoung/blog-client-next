@@ -16,6 +16,7 @@ interface Props {
   id: number;
   title: string;
   content: string;
+  category: string;
   time: string;
   tags?: Array<string>;
   toDetail: (id: number) => void;
@@ -24,6 +25,7 @@ const ArticleCard: SFC<Props> = ({
   id,
   title,
   content,
+  category,
   tags,
   time,
   toDetail
@@ -33,7 +35,11 @@ const ArticleCard: SFC<Props> = ({
       <Card onClick={() => toDetail(id)}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className="avatar">
+            <Avatar
+              aria-label="recipe"
+              className="avatar"
+              style={{ background: "#556cd6" }}
+            >
               {title.trim().slice(0, 1)}
             </Avatar>
           }
@@ -48,7 +54,7 @@ const ArticleCard: SFC<Props> = ({
         />
         {/* <CardMedia
           className="media"
-          // image="/static/images/cards/paella.jpg"
+          image="/static/images/cards/paella.jpg"
           title="Paella dish"
         /> */}
         <CardContent>
@@ -57,11 +63,11 @@ const ArticleCard: SFC<Props> = ({
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          {/* <ArticleInfo
+          <ArticleInfo
             time={time}
             tags={tags}
-            archives={["aa", "bb"]}
-          ></ArticleInfo> */}
+            category={category}
+          ></ArticleInfo>
         </CardActions>
       </Card>
       <style jsx>{style}</style>
@@ -75,15 +81,15 @@ const style = css`
   .card {
     margin-bottom: 50px;
   }
-  /* .card:hover {
+  .card:hover {
     box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
       0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
     cursor: pointer;
-  } */
+  }
   .avatar {
-    background-color: #607d8b;
+    background-color: "#556cd6";
     text-transform: uppercase;
-    color: "#fff";
+    color: "#556cd6";
   }
   .header {
     background: red;

@@ -5,10 +5,10 @@ import TagIcon from "../TagIcon";
 interface Props {
   time: string;
   tags: Array<string>;
-  archives: Array<string>;
+  category: string;
 }
 
-const ArticleInfo: SFC<Props> = ({ time, tags = [], archives = [] }) => {
+const ArticleInfo: SFC<Props> = ({ time, tags = [], category = "" }) => {
   return (
     <div className="info">
       <span className="date">发布于 {time}</span>
@@ -20,11 +20,7 @@ const ArticleInfo: SFC<Props> = ({ time, tags = [], archives = [] }) => {
       ))}
       <Divider type="vertical"></Divider>
       <TagIcon type="container" />
-      {archives.map(item => (
-        <Tag color="orange" key={item}>
-          {item}
-        </Tag>
-      ))}
+      <Tag color="orange">{category}</Tag>
       <style jsx>{`
         .info {
           display: flex;

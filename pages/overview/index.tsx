@@ -1,26 +1,20 @@
-import React, { SFC, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import Router from "next/router";
+import React from "react";
+import { NextPage } from "next";
+import Router, { withRouter } from "next/router";
 import { Pagination, Spin } from "antd";
-import { Store, ArticleList } from "@client/typings/store";
-import Preview from "@client/components/Preview";
-import { fetchArticleList } from "@client/redux/actions/article";
+import { ArticleList } from "@client/typings/store";
 import ArticleCard from "@client/components/ArticleCard";
 import myApi from "@utils/myApi";
 interface Props {
   articleList: ArticleList;
-  fetchArticleList: typeof fetchArticleList;
-  res: any;
 }
-
-interface Next {
-  getInitialProps: any;
-}
-const fetData = async page => {
-  const res = await myApi(`article?page=${page}&page_size=10&order=DESC`);
+const fetchData = async (page: number, cate?: any) => {
+  const res = cate
+    ? await myApi(`article?cate=${cate}&page=${page}&page_size=10&order=DESC`)
+    : await myApi(`article?page=${page}&page_size=10&order=DESC`);
   return res;
 };
-const Overview: SFC<Props> & Next = props => {
+const Overview: NextPage<Props> = props => {
   const { articleList } = props;
   const { total, data = [] } = articleList;
 
@@ -29,7 +23,7 @@ const Overview: SFC<Props> & Next = props => {
   };
 
   const pageChange = async (page: number) => {
-    await fetData(page);
+    await fetchData(page);
   };
 
   return (
@@ -51,6 +45,7 @@ const Overview: SFC<Props> & Next = props => {
               content={item.content}
               tags={item.tags}
               time={item.updatedAt}
+              category={item.category}
               toDetail={toArticleDetail}
             ></ArticleCard>
           </div>
@@ -68,22 +63,17 @@ const Overview: SFC<Props> & Next = props => {
           flex-direction: column;
           justify-content: left;
           align-items: center;
-          margin-top: 30px;
-          width: 70%;
+          margin: 30px;
+          max-width: 600px;
         }
       `}</style>
     </div>
   );
 };
 
-Overview.getInitialProps = async () => {
-  const res = await fetData(1);
+Overview.getInitialProps = async ({ query }) => {
+  const res = query.cate ? await fetchData(1, query.cate) : await fetchData(1);
   return { articleList: res };
 };
 
-export default connect(
-  (state: Store) => ({
-    articleList2: state.article.articleList
-  }),
-  { fetchArticleList }
-)(Overview);
+export default Overview;

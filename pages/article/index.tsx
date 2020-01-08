@@ -1,4 +1,5 @@
 import React, { SFC, useEffect, useState } from "react";
+import { NextPage } from "next";
 import marked from "marked";
 import hljs from "highlight.js";
 
@@ -16,13 +17,11 @@ import useTocify from "@utils/useTocify";
 interface Props {
   article: ArticleDetail;
 }
-interface Next {
-  getInitialProps: any;
-}
 
-const Article: SFC<Props> & Next = props => {
+const Article: NextPage<Props> = props => {
+  console.log("propsAA :", props);
   const [loading, setloading] = useState(true);
-  const { title, content, updatedAt, tags = [] } = props.article;
+  const { title, content, updatedAt, tags = [], category } = props.article;
   // const { tocify, output, setOutput } = useTocify("");
 
   const tocify = new Tocify();
@@ -55,7 +54,7 @@ const Article: SFC<Props> & Next = props => {
           <ArticleInfo
             time={updatedAt}
             tags={tags}
-            archives={["33", "44"]}
+            category={category}
           ></ArticleInfo>
           <div
             className="content"

@@ -21,6 +21,7 @@ export interface ArticleDetail {
   id: number;
   title: string;
   content: string;
+  category: string;
   updatedAt: string;
   tags?: Array<string>;
 }

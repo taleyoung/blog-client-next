@@ -27,11 +27,7 @@ const Preview: SFC<Props> = ({ id, title, content, tags, time, toDetail }) => (
         <div>
           {content} <a onClick={() => toDetail(id)}>查看全文</a>
         </div>
-        <ArticleInfo
-          time={time}
-          tags={tags}
-          archives={["aa", "bb"]}
-        ></ArticleInfo>
+        <ArticleInfo time={time} tags={tags} category={"aa"}></ArticleInfo>
       </div>
     </div>
     <style jsx>{style}</style>

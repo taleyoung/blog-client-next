@@ -1,7 +1,8 @@
 import { message } from "antd";
 import fetch from "isomorphic-fetch";
 
-const rootUrl = "http://api.taleyoung.top/api/v1";
+const rootUrl = "http://api.taleyoung.top/blog";
+// const rootUrl = "http://127.0.0.1:8080/blog";
 const myApi = async (url: string, method?: string, data?: any) => {
   try {
     method = method ? method : "get";

@@ -1,5 +1,5 @@
 import React, { SFC, useState, useEffect } from "react";
-import myApi from "@utils/myApi";
+import Link from "next/link";
 
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -16,24 +16,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
 import Collapse from "@material-ui/core/Collapse";
 
-export interface IProp {
-  tags?: any[];
-}
-
-interface Next {
-  getInitialProps: any;
-}
-
-const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
+const SideBar: SFC = () => {
   const [open, setOpen] = useState(false);
-  // const [tags, setTags] = useState([]);
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const res = await myApi("tag");
-  //     setTags(res);
-  //   };
-  //   fetch();
-  // }, []);
   const drawerWidth = 300;
 
   const useStyles: any = makeStyles((theme: Theme) =>
@@ -79,24 +63,29 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
             </ListItem>
           </List>
         </Collapse>
-        {["算法", "后端", "随笔"].map((text, index) => (
-          <ListItem button key={text}>
+        <Link href={{ pathname: "/overview" }}>
+          <ListItem button>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary="全部文章" />
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        </Link>
+        {["前端", "后端", "零碎"].map((text, index) => (
+          <Link
+            key={text}
+            href={{
+              pathname: "/overview",
+              query: { cate: encodeURIComponent(text) }
+            }}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
@@ -170,15 +159,6 @@ const SideBar: SFC<IProp> & Next = ({ tags = [] }) => {
     //   `}</style>
     // </div>
   );
-};
-
-SideBar.getInitialProps = async function() {
-  console.log("object");
-  const res = await myApi("tag");
-  console.log("res", res);
-  return {
-    tags: res
-  };
 };
 
 export default SideBar;

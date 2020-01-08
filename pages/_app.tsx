@@ -6,13 +6,21 @@ import AdminLayout from "@components/Layout/Admin";
 import withReduxStore from "@utils/withRedux";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "@utils/theme";
-
+import myApi from "@utils/myApi";
 import "antd/dist/antd.css";
 
 interface Props {
   reduxStore: any;
 }
 class MyApp extends App<Props> {
+  // static async getInitialProps() {
+  //   const res = myApi("category");
+  //   return {
+  //     pageProps: {
+  //       category: res
+  //     }
+  //   };
+  // }
   componentDidMount() {
     // Remove the server-side injected CSS.
     // const jssStyles = document.querySelector("#jss-server-side");
@@ -44,5 +52,4 @@ class MyApp extends App<Props> {
     );
   }
 }
-
 export default withRouter(withReduxStore(MyApp));
