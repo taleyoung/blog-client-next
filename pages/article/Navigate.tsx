@@ -13,7 +13,7 @@ export interface TocItem {
 
 export type TocItems = TocItem[]; // TOC目录树结构
 
-export default class Tocify {
+export default class Navigate {
   tocItems: TocItems = [];
 
   index: number = 0;

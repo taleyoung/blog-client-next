@@ -40,7 +40,8 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "ts-node": "^8.5.2"
+    "ts-node": "^8.5.2",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "@types/marked": "^0.7.2",

@@ -1,19 +1,14 @@
 import React, { SFC } from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Spin, Icon } from "antd";
 
-const Loading: SFC = () => (
-  <div className="container">
-    <CircularProgress color="secondary" />
-    <style jsx>{`
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 400px;
-      }
-    `}</style>
-  </div>
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
+interface Props {
+  loading: boolean;
+}
+
+const Loading: SFC<Props> = ({ loading }) => (
+  <Spin spinning={loading} indicator={antIcon} />
 );
 
 export default Loading;

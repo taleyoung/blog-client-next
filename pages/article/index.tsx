@@ -1,69 +1,68 @@
 import React, { SFC, useEffect, useState } from "react";
 import { NextPage } from "next";
+import css from "styled-jsx/css";
 import marked from "marked";
+import { Spin, Icon, Divider } from "antd";
 import hljs from "highlight.js";
+import contentStyle from "./content-style";
 
 import { ArticleDetail } from "@client/typings/store";
-import css from "styled-jsx/css";
 import ArticleInfo from "@components/ArticleInfo";
-import Loading from "@components/Loading";
-import Fade from "@material-ui/core/Fade";
 import myApi from "@utils/myApi";
-
-import Tocify from "./tocify";
-
+import Navigate from "./Navigate";
 import "highlight.js/styles/atelier-forest-dark.css";
-import useTocify from "@utils/useTocify";
 interface Props {
   article: ArticleDetail;
 }
 
 const Article: NextPage<Props> = props => {
   const [loading, setloading] = useState(true);
+  const { article } = props;
   const { title, content, updatedAt, tags = [], category } = props.article;
-  // const { tocify, output, setOutput } = useTocify("");
 
-  const tocify = new Tocify();
+  const navigate = new Navigate();
   const renderer = new marked.Renderer();
   renderer.heading = function(text, level) {
-    const anchor = tocify.add(text, level);
+    const anchor = navigate.add(text, level);
     return `<div id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></div>\n`;
   };
   marked.setOptions({
     renderer,
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    breaks: true,
+    smartLists: true,
+    smartypants: true,
     highlight: code => hljs.highlightAuto(code).value
   });
   const output = marked(content);
 
   useEffect(() => {
-    setloading(false);
-    // setOutput(content);
-  }, [props.article]);
+    if (article) {
+      setloading(false);
+    }
+  }, [article]);
 
-  if (loading) {
-    return <Loading></Loading>;
-  }
   return (
-    // <Fade in={loading}>
-    <div>
-      <div className="container">
-        <div className="content-wrap">
-          <div className="title">{title}</div>
-          <ArticleInfo
-            time={updatedAt}
-            tags={tags}
-            category={category}
-          ></ArticleInfo>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{ __html: output }}
-          />
-        </div>
-        <div className="toc">{tocify && tocify.render()}</div>
-        <style jsx>{style}</style>
+    <Spin
+      spinning={loading}
+      indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}
+    >
+      <div className="article">
+        <div className="title">{title}</div>
+        <ArticleInfo
+          time={updatedAt}
+          tags={tags}
+          category={category}
+        ></ArticleInfo>
+        <Divider></Divider>
+        <div className="content" dangerouslySetInnerHTML={{ __html: output }} />
       </div>
-    </div>
-    // </Fade>
+      <div className="navigate">{navigate && navigate.render()}</div>
+      <style jsx>{style}</style>
+      <style jsx>{contentStyle}</style>
+    </Spin>
   );
 };
 
@@ -75,37 +74,33 @@ Article.getInitialProps = async ({ query }) => {
 export default Article;
 
 const style = css`
-  .loading {
-    position: absolute;
-    top: 500px;
-  }
-  .container {
-    display: flex;
-  }
-  .content-wrap {
-    flex: 4;
+  .article {
+    width: calc(100% - 300px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-    margin: 30px 90px 0px 90px;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 0 20px;
   }
-
   .title {
     font-size: 30px;
   }
-
   .content {
-    flex: 4;
-    line-height: 2em;
+    width: 100%;
     font-size: 15px;
   }
-  .toc {
-    flex: 1;
-    margin-top: 150px;
-    padding: 0;
+  .navigate {
+    position: fixed;
+    width: 300px;
+    top: 104px;
+    right: 20px;
+  }
+  @media screen and (max-width: 736px) {
+    .navigate {
+      display: none;
+    }
+    .article {
+      width: 100%;
+    }
   }
 `;

@@ -6,12 +6,18 @@ interface Props {
   time: string;
   tags: Array<string>;
   category: string;
+  isTime?: boolean;
 }
 
-const ArticleInfo: SFC<Props> = ({ time, tags = [], category = "" }) => {
+const ArticleInfo: SFC<Props> = ({
+  time,
+  tags = [],
+  category = "",
+  isTime = true
+}) => {
   return (
     <div className="info">
-      <span className="date">发布于 {time}</span>
+      {isTime ? <span className="date">发布于 {time}</span> : ""}
       <TagIcon type="tag"></TagIcon>
       {tags.map(item => (
         <Tag color="orange" key={item}>

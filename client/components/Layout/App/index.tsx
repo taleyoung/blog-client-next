@@ -1,9 +1,10 @@
 import React, { SFC, ReactNode } from "react";
+import css from "styled-jsx/css";
 import Header from "./Header";
 import SiderBar from "./SiderBar";
 import { Layout, Row, Col } from "antd";
 
-const { Content, Footer } = Layout;
+const { Footer } = Layout;
 
 export interface Props {
   children: ReactNode;
@@ -21,10 +22,10 @@ const AppLayout: SFC<Props> = props => {
           <SiderBar />
         </Col>
         <Col {...contentLayout}>
-          {/* <AppMain {...props} /> */}
           <div className="app-main">{props.children}</div>
         </Col>
       </Row>
+      <Footer className="footer">Designed By Taleyoung ❤️</Footer>
       {/* <BackTop target={() => document.querySelector('.app-main')} /> */}
       <style jsx global>
         {`
@@ -38,10 +39,12 @@ const AppLayout: SFC<Props> = props => {
             overflow: auto;
             -webkit-overflow-scrolling: touch;
             box-sizing: border-box;
-            padding-left: 40px;
-            padding-right: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
-
+          .footer {
+            text-align: center;
+          }
           @media only screen and (max-width: 736px) {
             .header-dropdown-icon {
               display: block !important;
@@ -61,3 +64,34 @@ const AppLayout: SFC<Props> = props => {
 };
 
 export default AppLayout;
+
+const style = css`
+  .app-wrapper {
+    background: #fff;
+    padding: 40px 0 0;
+    position: relative;
+  }
+  .app-main {
+    height: calc(100vh - 64px - 40px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .footer {
+    text-align: center;
+  }
+  @media only screen and (max-width: 736px) {
+    .header-dropdown-icon {
+      display: block !important;
+      position: absolute;
+      font-size: 18px;
+      right: 30px;
+      top: 0px;
+      width: 16px;
+      height: 22px;
+      z-index: 1;
+    }
+  }
+`;

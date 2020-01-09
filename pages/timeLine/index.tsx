@@ -30,8 +30,7 @@ const TimeLine = () => {
       <style jsx>
         {`
           .container {
-            margin: 50px 50px 0 80px;
-            width: 500px;
+            width: 100%;
           }
         `}
       </style>
