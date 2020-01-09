@@ -1,29 +1,62 @@
 import React, { SFC, ReactNode } from "react";
-import MyHeader from "./Header";
+import Header from "./Header";
 import SiderBar from "./SiderBar";
-import { Layout } from "antd";
+import { Layout, Row, Col } from "antd";
 
 const { Content, Footer } = Layout;
 
 export interface Props {
   children: ReactNode;
 }
+// 响应式
+const siderLayout = { xxl: 4, xl: 5, lg: 5, sm: 0, xs: 0 };
+const contentLayout = { xxl: 20, xl: 19, lg: 19, sm: 24, xs: 24 };
+
 const AppLayout: SFC<Props> = props => {
   return (
-    <div>
-      <Layout>
-        <MyHeader></MyHeader>
-        <Layout style={{ marginTop: "65px" }}>
-          <SiderBar></SiderBar>
-        </Layout>
-        <Layout style={{ marginLeft: "320px" }}>
-          <Content style={{ margin: "24px 16px 0" }}>{props.children}</Content>
-          <Footer style={{ textAlign: "center" }}>
-            Designed By taleyoung ❤️
-          </Footer>
-        </Layout>
-      </Layout>
-    </div>
+    <Layout className="app-container">
+      <Header />
+      <Row className="app-wrapper">
+        <Col {...siderLayout}>
+          <SiderBar />
+        </Col>
+        <Col {...contentLayout}>
+          {/* <AppMain {...props} /> */}
+          <div className="app-main">{props.children}</div>
+        </Col>
+      </Row>
+      {/* <BackTop target={() => document.querySelector('.app-main')} /> */}
+      <style jsx global>
+        {`
+          .app-wrapper {
+            background: #fff;
+            padding: 40px 0 0;
+            position: relative;
+          }
+          .app-main {
+            height: calc(100vh - 64px - 40px);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
+            padding-left: 40px;
+            padding-right: 10px;
+          }
+
+          @media only screen and (max-width: 736px) {
+            .header-dropdown-icon {
+              display: block !important;
+              position: absolute;
+              font-size: 18px;
+              right: 30px;
+              top: 0px;
+              width: 16px;
+              height: 22px;
+              z-index: 1;
+            }
+          }
+        `}
+      </style>
+    </Layout>
   );
 };
 
