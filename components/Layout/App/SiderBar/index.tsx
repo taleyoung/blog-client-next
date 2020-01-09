@@ -1,10 +1,9 @@
 import React, { SFC } from "react";
-import Link from "next/link";
-import { Layout, Divider, Tag, Menu, Icon } from "antd";
-import Intro from "@components/Intro";
 import css from "styled-jsx/css";
+import Link from "next/link";
+import { Divider, Tag, Menu, Icon } from "antd";
+import Intro from "@components/Intro";
 
-const { Sider } = Layout;
 const SideBar: SFC = () => {
   return (
     // <Sider

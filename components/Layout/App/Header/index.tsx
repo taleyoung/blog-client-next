@@ -1,5 +1,5 @@
 import React, { SFC } from "react";
-import { Icon, Button, Layout, Row, Col, Dropdown } from "antd";
+import { Icon, Layout, Row, Col } from "antd";
 import Left from "./Left";
 import Right from "./Right";
 const { Header } = Layout;

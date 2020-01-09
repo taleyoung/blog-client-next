@@ -6,7 +6,7 @@ const Intro: FC = () => {
   return (
     <div className="container">
       <Avatar
-        // src="/static/img/avatar1.jpeg"
+        src="/static/img/avatar1.jpeg"
         size="large"
         className="avatar"
       ></Avatar>

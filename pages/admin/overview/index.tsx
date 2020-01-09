@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Table, Popconfirm, Tag } from "antd";
 import Router from "next/router";
 import { fetchArticleList, deleteArticle } from "@redux/actions/article";
-import { Store, ArticleDetail, ArticleList } from "@client/typings/store";
-import { Next } from "@client/typings/next";
+import { Store, ArticleDetail, ArticleList } from "@itypings/store";
+import { Next } from "@itypings/next";
 import BreadCrumb from "@components/BreadCrumb";
 
 interface Props {
@@ -17,7 +17,6 @@ interface ArticleListTable extends ArticleDetail {
   key: string;
 }
 const Overview: SFC<Props> & Next = props => {
-  console.log("props :", props);
   const [loading, setLoading] = useState(false);
   const [tableData, setData] = useState([]);
   const { articleList } = props;

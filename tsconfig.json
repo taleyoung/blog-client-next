@@ -15,10 +15,11 @@
     "baseUrl": "./",
     "paths": {
       "@client/*": ["client/*"],
-      "@redux/*": ["client/redux/*"],
-      "@components/*": ["client/components/*"],
+      "@redux/*": ["redux/*"],
+      "@components/*": ["components/*"],
       "@static/*": ["client/static/*"],
-      "@utils/*": ["client/utils/*"]
+      "@utils/*": ["utils/*"],
+      "@itypings/*": ["typings/*"]
     },
     "isolatedModules": true
   },

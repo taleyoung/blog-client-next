@@ -1,6 +1,6 @@
 import * as actionTypes from "../action-types";
-import { createActionAsync } from "../../utils/createAction";
-import { SubmitArticleScheme } from "../../typings/index";
+import { createActionAsync } from "@utils/createAction";
+import { SubmitArticleScheme } from "@itypings/index";
 
 // const HOST = '127.0.0.1';
 const HOST = "http://api.taleyoung.top";

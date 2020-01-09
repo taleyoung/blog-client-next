@@ -8,7 +8,7 @@ import {
   updateArticle,
   addArticle
 } from "@redux/actions/article";
-import { Store, ArticleDetail } from "@client/typings/store";
+import { Store, ArticleDetail } from "@itypings/store";
 import BreadCrumb from "@components/BreadCrumb";
 import myApi from "@utils/myApi";
 

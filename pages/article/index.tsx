@@ -1,16 +1,18 @@
-import React, { SFC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import css from "styled-jsx/css";
 import marked from "marked";
-import { Spin, Icon, Divider } from "antd";
 import hljs from "highlight.js";
-import contentStyle from "./content-style";
+import { Spin, Icon, Divider } from "antd";
+import "highlight.js/styles/atelier-forest-dark.css";
 
-import { ArticleDetail } from "@client/typings/store";
+import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
 import myApi from "@utils/myApi";
+
+import contentStyle from "./content-style";
 import Navigate from "./Navigate";
-import "highlight.js/styles/atelier-forest-dark.css";
+
 interface Props {
   article: ArticleDetail;
 }

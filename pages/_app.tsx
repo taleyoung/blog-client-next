@@ -1,12 +1,9 @@
-import App, { Container } from "next/app";
+import App from "next/app";
 import { Provider } from "react-redux";
 import { withRouter } from "next/router";
 import Layout from "@components/Layout/App";
 import AdminLayout from "@components/Layout/Admin";
 import withReduxStore from "@utils/withRedux";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "@utils/theme";
-import myApi from "@utils/myApi";
 import "antd/dist/antd.css";
 
 interface Props {
@@ -37,11 +34,7 @@ class MyApp extends App<Props> {
   }
   render() {
     const { reduxStore } = this.props;
-    return (
-      <Provider store={reduxStore}>
-        <ThemeProvider theme={theme}>{this.renderLayout()}</ThemeProvider>
-      </Provider>
-    );
+    return <Provider store={reduxStore}>{this.renderLayout()}</Provider>;
   }
 }
 export default withRouter(withReduxStore(MyApp));

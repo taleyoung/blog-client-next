@@ -5,7 +5,7 @@ if (typeof require !== "undefined") {
   require.extensions[".css"] = file => {};
 }
 
-const clientPath = path.resolve(__dirname, "client");
+const clientPath = path.resolve(__dirname, "./");
 module.exports = withCss({
   webpack: config => {
     const alias = config.resolve.alias;
@@ -15,7 +15,8 @@ module.exports = withCss({
       "@static": path.resolve(clientPath, "static"),
       "@redux": path.resolve(clientPath, "redux"),
       "@components": path.resolve(clientPath, "components"),
-      "@utils": path.resolve(clientPath, "utils")
+      "@utils": path.resolve(clientPath, "utils"),
+      "@itypings": path.resolve(clientPath, "typings")
     };
     // config.module.rules.push({
     //   test: /\.(jpe?g|png|svg|gif|ico|webp)$/,

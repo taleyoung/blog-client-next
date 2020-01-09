@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Pagination, List, Spin, Icon } from "antd";
 
 import Intro from "@components/Intro";
-import { ArticleList } from "@client/typings/store";
+import { ArticleList } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
 import MyDrawer from "@components/MyDrawer";
 import myApi from "@utils/myApi";
