@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import css from "styled-jsx/css";
 import { NextPage } from "next";
 import Link from "next/link";
-import { Pagination, List, Spin, Icon } from "antd";
+import { Pagination, List, Spin, Icon, Avatar } from "antd";
 
 import Intro from "@components/Intro";
 import { ArticleList } from "@itypings/store";
@@ -62,7 +62,11 @@ const Overview: NextPage<Props> = props => {
           }
         >
           <List.Item.Meta
-            // avatar={<Avatar src={item.avatar} />}
+            avatar={
+              <Avatar style={{ color: "#fff", backgroundColor: "#556cd6" }}>
+                {item.title.trim().slice(0, 1)}
+              </Avatar>
+            }
             title={
               <Link
                 href={{
@@ -76,6 +80,14 @@ const Overview: NextPage<Props> = props => {
             description={item.updatedAt}
           />
           {item.content}
+          <Link
+            href={{
+              pathname: "/article",
+              query: { id: item.id }
+            }}
+          >
+            <a style={{ color: "#556cd6" }}> 查看全文</a>
+          </Link>
         </List.Item>
       )}
     />
