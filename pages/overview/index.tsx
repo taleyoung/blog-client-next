@@ -2,104 +2,66 @@ import React, { useEffect, useState } from "react";
 import css from "styled-jsx/css";
 import { NextPage } from "next";
 import Link from "next/link";
-import { Pagination, List, Spin, Icon, Avatar } from "antd";
+import { Pagination, Spin, Icon, Tag, Divider, Menu } from "antd";
 
 import Intro from "@components/Intro";
 import { ArticleList } from "@itypings/store";
-import ArticleInfo from "@components/ArticleInfo";
 import MyDrawer from "@components/MyDrawer";
 import myApi from "@utils/myApi";
+import Articles from "./Articles";
+import TopTitle from "./TopTitile";
 
-const fetchData = async (page: number, cate?: any) => {
-  const res = cate
-    ? await myApi(`article?cate=${cate}&page=${page}&page_size=10&order=DESC`)
-    : await myApi(`article?page=${page}&page_size=10&order=DESC`);
-  return res;
+const fetchArticles = async (page: number, cate?: string | string[]) => {
+  if (cate instanceof Array) {
+    return [];
+  } else {
+    const res = cate
+      ? await myApi(`article?cate=${cate}&page=${page}&page_size=10&order=DESC`)
+      : await myApi(`article?page=${page}&page_size=10&order=DESC`);
+    return res;
+  }
 };
 
 interface Props {
   articleList: ArticleList;
+  cate: string | string[];
+  cateListData: { data: Array<{ category: string }> };
 }
 
 const Overview: NextPage<Props> = props => {
-  const { articleList } = props;
+  console.log("props :", props);
+  const { articleList, cate, cateListData } = props;
   const { total, data = [] } = articleList;
-  const [loading, setLoading] = useState(true);
+  const { data: cateList } = cateListData;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [category, setCategory] = useState<string>(null);
 
   useEffect(() => {
-    console.log("props.articleList :", articleList);
     if (articleList) {
       setLoading(false);
     }
   }, [articleList]);
 
-  const pageChange = async (page: number) => {
-    await fetchData(page);
-  };
+  useEffect(() => {
+    if (!cate || cate instanceof Array) {
+      setCategory(null);
+    } else {
+      setCategory(decodeURIComponent(cate));
+    }
+  }, [cate]);
 
-  const Articles = () => (
-    <List
-      itemLayout="vertical"
-      size="large"
-      dataSource={data}
-      renderItem={item => (
-        <List.Item
-          key={item.title}
-          actions={[
-            <ArticleInfo
-              time={item.updatedAt}
-              tags={item.tags}
-              category={item.category}
-              isTime={false}
-            ></ArticleInfo>
-          ]}
-          extra={
-            <img
-              width={200}
-              alt="logo"
-              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-            />
-          }
-        >
-          <List.Item.Meta
-            avatar={
-              <Avatar style={{ color: "#fff", backgroundColor: "#556cd6" }}>
-                {item.title.trim().slice(0, 1)}
-              </Avatar>
-            }
-            title={
-              <Link
-                href={{
-                  pathname: "/article",
-                  query: { id: item.id }
-                }}
-              >
-                <a> {item.title}</a>
-              </Link>
-            }
-            description={item.updatedAt}
-          />
-          {item.content}
-          <Link
-            href={{
-              pathname: "/article",
-              query: { id: item.id }
-            }}
-          >
-            <a style={{ color: "#556cd6" }}> 查看全文</a>
-          </Link>
-        </List.Item>
-      )}
-    />
-  );
+  const pageChange = async (page: number) => {
+    await fetchArticles(page);
+  };
 
   return (
     <Spin
       spinning={loading}
       indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}
     >
+      <TopTitle category={category}></TopTitle>
       <div className="main">
-        <Articles></Articles>
+        <Articles data={data}></Articles>
         <div className="pagination">
           <Pagination
             pageSize={10}
@@ -111,7 +73,36 @@ const Overview: NextPage<Props> = props => {
         </div>
       </div>
       <div className="sider">
-        <Intro></Intro>
+        <Divider>文章归类</Divider>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={["前端"]}>
+          <Menu.Item>
+            <Link href="/overview">
+              <div>
+                <Icon type="user" />
+                <span className="nav-text">全部</span>
+              </div>
+            </Link>
+          </Menu.Item>
+
+          {cateList.map(item => (
+            <Menu.Item key={item.category}>
+              <Link
+                href={{
+                  pathname: "/overview",
+                  query: { cate: encodeURIComponent(item.category) }
+                }}
+              >
+                <div>
+                  <Icon type="user" />
+                  <span className="nav-text">{item.category}</span>
+                </div>
+              </Link>
+            </Menu.Item>
+          ))}
+        </Menu>
+        <Divider>标签云</Divider>
+        <Tag color="blue">react</Tag>
+        <Tag color="blue">nodejs</Tag>
       </div>
       <MyDrawer children={<Intro></Intro>}></MyDrawer>
       <style jsx>{style}</style>
@@ -120,8 +111,12 @@ const Overview: NextPage<Props> = props => {
 };
 
 Overview.getInitialProps = async ({ query }) => {
-  const res = query.cate ? await fetchData(1, query.cate) : await fetchData(1);
-  return { articleList: res };
+  const { cate } = query;
+  const res: ArticleList = cate
+    ? await fetchArticles(1, cate)
+    : await fetchArticles(1);
+  const cateListData = await myApi("category");
+  return { articleList: res, cate, cateListData };
 };
 
 export default Overview;

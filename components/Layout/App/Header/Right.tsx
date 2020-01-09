@@ -1,12 +1,8 @@
 import React, { SFC } from "react";
 import { Menu } from "antd";
 import Link from "next/link";
+import { MenuList } from "@itypings/config";
 
-interface MenuList {
-  name: string;
-  iconType: string;
-  path: string;
-}
 interface Props {
   menuList: Array<MenuList>;
 }

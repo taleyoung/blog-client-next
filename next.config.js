@@ -16,7 +16,8 @@ module.exports = withCss({
       "@redux": path.resolve(clientPath, "redux"),
       "@components": path.resolve(clientPath, "components"),
       "@utils": path.resolve(clientPath, "utils"),
-      "@itypings": path.resolve(clientPath, "typings")
+      "@itypings": path.resolve(clientPath, "typings"),
+      "@config": path.resolve(clientPath, "config")
     };
     // config.module.rules.push({
     //   test: /\.(jpe?g|png|svg|gif|ico|webp)$/,

@@ -2,12 +2,8 @@ import React, { SFC } from "react";
 import css from "styled-jsx/css";
 import Link from "next/link";
 import { Dropdown, Menu, Icon } from "antd";
+import { MenuList } from "@itypings/config";
 
-interface MenuList {
-  name: string;
-  iconType: string;
-  path: string;
-}
 interface Props {
   menuList: Array<MenuList>;
 }

@@ -1,5 +1,6 @@
 import React, { SFC } from "react";
 import { Icon, Layout, Row, Col } from "antd";
+import { menuList } from "../../../../config/index";
 import Left from "./Left";
 import Right from "./Right";
 const { Header } = Layout;
@@ -11,23 +12,6 @@ const IconFont = Icon.createFromIconfontCN({
 const responsiveLeft = { xxl: 5, xl: 5, lg: 5, sm: 4, xs: 24 };
 const responsiveRight = { xxl: 5, xl: 5, lg: 10, sm: 0, xs: 0 };
 
-const menuList = [
-  {
-    path: "/overview",
-    iconType: "icon-qiu",
-    name: "首页"
-  },
-  {
-    path: "/timeline",
-    iconType: "icon-jilu",
-    name: "文章归档"
-  },
-  {
-    path: "/about",
-    iconType: "icon-xiangji",
-    name: "关于我"
-  }
-];
 export interface Props {}
 
 const MyHeader: SFC<Props> = () => {

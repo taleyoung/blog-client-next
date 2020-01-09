@@ -19,10 +19,11 @@
       "@components/*": ["components/*"],
       "@static/*": ["client/static/*"],
       "@utils/*": ["utils/*"],
-      "@itypings/*": ["typings/*"]
+      "@itypings/*": ["typings/*"],
+      "@config/*": ["config/*"]
     },
     "isolatedModules": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.ts", "**/*.d.ts"]
 }
