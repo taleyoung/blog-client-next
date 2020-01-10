@@ -1,16 +1,13 @@
 import React, { SFC, useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { Table, Popconfirm, Tag } from "antd";
 import Router from "next/router";
-import { fetchArticleList, deleteArticle } from "@redux/actions/article";
 import { Store, ArticleDetail, ArticleList } from "@itypings/store";
 import { Next } from "@itypings/next";
 import BreadCrumb from "@components/BreadCrumb";
+import myApi, { fetchArticles } from "@utils/myApi";
 
 interface Props {
   articleList: ArticleList;
-  fetchArticleList: typeof fetchArticleList;
-  deleteArticle: typeof deleteArticle;
 }
 
 interface ArticleListTable extends ArticleDetail {
@@ -38,6 +35,11 @@ const Overview: SFC<Props> & Next = props => {
       title: "内容",
       dataIndex: "content",
       key: "content"
+    },
+    {
+      title: "分类",
+      dataIndex: "category",
+      key: "category"
     },
     {
       title: "标签",
@@ -86,7 +88,8 @@ const Overview: SFC<Props> & Next = props => {
 
   const deleteArticle = async (id: number) => {
     setLoading(true);
-    await props.deleteArticle(id);
+    const res = await myApi(`article/${id}`, "delete");
+    console.log("res", res);
     setLoading(false);
   };
 
@@ -96,7 +99,6 @@ const Overview: SFC<Props> & Next = props => {
 
   useEffect(() => {
     const getArticles = async () => {
-      await props.fetchArticleList();
       setLoading(false);
     };
     getArticles();
@@ -111,7 +113,7 @@ const Overview: SFC<Props> & Next = props => {
   }, [data]);
 
   const pageChange = async (page: number) => {
-    await props.fetchArticleList(page);
+    // await props.fetchArticleList(page);
   };
 
   const pagination = {
@@ -133,19 +135,8 @@ const Overview: SFC<Props> & Next = props => {
 };
 
 Overview.getInitialProps = async () => {
-  const res = await fetchArticleList();
-  console.log("res :", res);
-  return {
-    testres: res
-  };
+  const res: ArticleList = await fetchArticles(1);
+  return { articleList: res };
 };
 
-export default connect(
-  (state: Store) => ({
-    articleList: state.article.articleList
-  }),
-  {
-    fetchArticleList,
-    deleteArticle
-  }
-)(Overview);
+export default Overview;

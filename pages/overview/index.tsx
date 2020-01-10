@@ -2,43 +2,37 @@ import React, { useEffect, useState } from "react";
 import css from "styled-jsx/css";
 import { NextPage } from "next";
 import Link from "next/link";
-import { Pagination, Spin, Icon, Tag, Divider, Menu } from "antd";
+import { Pagination, Spin, Icon, Tag, Divider, Menu, Timeline } from "antd";
 
 import Intro from "@components/Intro";
 import { ArticleList } from "@itypings/store";
 import MyDrawer from "@components/MyDrawer";
-import myApi from "@utils/myApi";
+import myApi, { fetchArticles } from "@utils/myApi";
 import Articles from "./Articles";
 import TopTitle from "./TopTitile";
-
-const fetchArticles = async (page: number, cate?: string | string[]) => {
-  if (cate instanceof Array) {
-    return [];
-  } else {
-    const res = cate
-      ? await myApi(`article?cate=${cate}&page=${page}&page_size=10&order=DESC`)
-      : await myApi(`article?page=${page}&page_size=10&order=DESC`);
-    return res;
-  }
-};
 
 interface Props {
   articleList: ArticleList;
   cate: string | string[];
   cateListData: { data: Array<{ category: string }> };
+  tagList: Array<{ id: string; name: string }>;
+  currentArticles: any;
 }
 
 const Overview: NextPage<Props> = props => {
-  console.log("props :", props);
-  const { articleList, cate, cateListData } = props;
+  const { articleList, cate, cateListData, tagList, currentArticles } = props;
   const { total, data = [] } = articleList;
   const { data: cateList } = cateListData;
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<string>(null);
+  const [list, setList] = useState([]);
+  const [listTotal, setListTotal] = useState();
 
   useEffect(() => {
     if (articleList) {
       setLoading(false);
+      setList(data);
+      setListTotal(total);
     }
   }, [articleList]);
 
@@ -51,7 +45,9 @@ const Overview: NextPage<Props> = props => {
   }, [cate]);
 
   const pageChange = async (page: number) => {
-    await fetchArticles(page);
+    const res = await fetchArticles(page, cate);
+    setList(res.data);
+    setListTotal(res.total);
   };
 
   return (
@@ -61,12 +57,12 @@ const Overview: NextPage<Props> = props => {
     >
       <TopTitle category={category}></TopTitle>
       <div className="main">
-        <Articles data={data}></Articles>
+        <Articles data={list}></Articles>
         <div className="pagination">
           <Pagination
             pageSize={10}
             defaultCurrent={1}
-            total={total}
+            total={listTotal}
             size="small"
             onChange={page => pageChange(page)}
           />
@@ -74,8 +70,8 @@ const Overview: NextPage<Props> = props => {
       </div>
       <div className="sider">
         <Divider>文章归类</Divider>
-        <Menu theme="light" mode="inline" defaultSelectedKeys={["前端"]}>
-          <Menu.Item>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={["全部"]}>
+          <Menu.Item key="全部">
             <Link href="/overview">
               <div>
                 <Icon type="user" />
@@ -83,7 +79,6 @@ const Overview: NextPage<Props> = props => {
               </div>
             </Link>
           </Menu.Item>
-
           {cateList.map(item => (
             <Menu.Item key={item.category}>
               <Link
@@ -101,8 +96,26 @@ const Overview: NextPage<Props> = props => {
           ))}
         </Menu>
         <Divider>标签云</Divider>
-        <Tag color="blue">react</Tag>
-        <Tag color="blue">nodejs</Tag>
+        {tagList.map(tag => (
+          <Tag color="blue" key={tag.name}>
+            {tag.name}
+          </Tag>
+        ))}
+        <Divider>近期文章</Divider>
+        <Timeline>
+          {currentArticles.map(article => (
+            <Timeline.Item key={article.id}>
+              <Link
+                href={{
+                  pathname: "/article",
+                  query: { id: article.id }
+                }}
+              >
+                <a>{article.title}</a>
+              </Link>
+            </Timeline.Item>
+          ))}
+        </Timeline>
       </div>
       <MyDrawer children={<Intro></Intro>}></MyDrawer>
       <style jsx>{style}</style>
@@ -116,7 +129,9 @@ Overview.getInitialProps = async ({ query }) => {
     ? await fetchArticles(1, cate)
     : await fetchArticles(1);
   const cateListData = await myApi("category");
-  return { articleList: res, cate, cateListData };
+  const tagList = await myApi("tag");
+  const currentArticles = await myApi("article/current");
+  return { articleList: res, cate, cateListData, tagList, currentArticles };
 };
 
 export default Overview;

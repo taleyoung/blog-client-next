@@ -1,6 +1,7 @@
 import React, { useState, SFC } from "react";
-import { Layout, Menu, Breadcrumb, Icon } from "antd";
+import { Layout, Menu, Icon } from "antd";
 import Router from "next/router";
+import Link from "next/link";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -8,7 +9,7 @@ const { SubMenu } = Menu;
 const AppSider: SFC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const addArticle = () => {
-    Router.push(`/admin/article?id=${-1}`);
+    Router.push(`/admin/article`);
   };
   return (
     <Sider
@@ -27,9 +28,15 @@ const AppSider: SFC = () => {
             </span>
           }
         >
-          <Menu.Item key="1">文章列表</Menu.Item>
-          <Menu.Item key="2" onClick={addArticle}>
-            新增文章
+          <Menu.Item key="1">
+            <Link href="/admin/overview">
+              <a>文章列表</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link href="/admin/article">
+              <a>新增文章</a>
+            </Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="3">
