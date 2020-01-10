@@ -5,13 +5,13 @@ interface Props {
   category: string;
 }
 const TopTitle: FC<Props> = ({ category }) => (
-  <div className="top-title">
+  <>
     {category ? (
-      <div>
+      <div className="top-title">
         <Tag color="#108ee9">{category}</Tag>的查询结果
       </div>
     ) : (
-      <div>
+      <div className="top-title">
         <Tag color="#108ee9">全部文章</Tag>
       </div>
     )}
@@ -22,7 +22,7 @@ const TopTitle: FC<Props> = ({ category }) => (
         }
       `}
     </style>
-  </div>
+  </>
 );
 
 export default TopTitle;

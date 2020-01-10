@@ -1,21 +1,28 @@
 import React, { FC, useState, ReactNode } from "react";
-import css from "styled-jsx/css";
-import { Icon, Drawer } from "antd";
+import { Drawer } from "antd";
 
 interface Props {
   children: ReactNode;
+  showIcon: ReactNode;
+  placement: "right" | "top" | "bottom" | "left";
+  topVh: string;
 }
 
-const MyDrawer: FC<Props> = ({ children }) => {
+const MyDrawer: FC<Props> = ({
+  children,
+  showIcon,
+  placement = "right",
+  topVh
+}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div>
       <div className="drawer-btn" onClick={() => setDrawerOpen(true)}>
-        <Icon type="menu-o" className="nav-phone-icon" />
+        {showIcon}
       </div>
       <Drawer
         title="Taleyoung's Blog"
-        placement="right"
+        placement={placement}
         closable={false}
         onClose={() => setDrawerOpen(false)}
         visible={drawerOpen}
@@ -23,31 +30,29 @@ const MyDrawer: FC<Props> = ({ children }) => {
       >
         {children}
       </Drawer>
-      <style jsx>{style}</style>
+      <style jsx>{`
+        .drawer-btn {
+          display: none;
+        }
+        @media screen and (max-width: 736px) {
+          .drawer-btn {
+            display: block;
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            top: ${topVh};
+            left: 10px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+            border-radius: 4px 0 0 4px;
+            text-align: center;
+            line-height: 41px;
+            z-index: 999;
+            background: #fff;
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
 export default MyDrawer;
-
-const style = css`
-  .drawer-btn {
-    display: none;
-  }
-  @media screen and (max-width: 736px) {
-    .drawer-btn {
-      display: block;
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      top: 20vh;
-      right: 10px;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-      border-radius: 4px 0 0 4px;
-      text-align: center;
-      line-height: 41px;
-      z-index: 999;
-      background: #fff;
-    }
-  }
-`;

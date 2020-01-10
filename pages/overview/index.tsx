@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from "react";
 import css from "styled-jsx/css";
 import { NextPage } from "next";
-import Link from "next/link";
-import { Pagination, Spin, Icon, Tag, Divider, Menu, Timeline } from "antd";
+import { Pagination, Spin, Icon } from "antd";
 
 import Intro from "@components/Intro";
 import { ArticleList } from "@itypings/store";
 import MyDrawer from "@components/MyDrawer";
 import myApi, { fetchArticles } from "@utils/myApi";
+
 import Articles from "./Articles";
 import TopTitle from "./TopTitile";
+import Sider from "./Sider";
 
 interface Props {
   articleList: ArticleList;
   cate: string | string[];
   cateListData: { data: Array<{ category: string }> };
   tagList: Array<{ id: string; name: string }>;
-  currentArticles: any;
+  currentArticles: Array<{ id: string; title: string; createAt: string }>;
 }
 
 const Overview: NextPage<Props> = props => {
   const { articleList, cate, cateListData, tagList, currentArticles } = props;
   const { total, data = [] } = articleList;
   const { data: cateList } = cateListData;
-  const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<string>(null);
-  const [list, setList] = useState([]);
-  const [listTotal, setListTotal] = useState();
+  const [list, setList] = useState(data);
+  const [listTotal, setListTotal] = useState(total);
 
   useEffect(() => {
     if (articleList) {
-      setLoading(false);
       setList(data);
       setListTotal(total);
     }
@@ -52,7 +51,7 @@ const Overview: NextPage<Props> = props => {
 
   return (
     <Spin
-      spinning={loading}
+      spinning={false}
       indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}
     >
       <TopTitle category={category}></TopTitle>
@@ -69,55 +68,38 @@ const Overview: NextPage<Props> = props => {
         </div>
       </div>
       <div className="sider">
-        <Divider>文章归类</Divider>
-        <Menu theme="light" mode="inline" defaultSelectedKeys={["全部"]}>
-          <Menu.Item key="全部">
-            <Link href="/overview">
-              <div>
-                <Icon type="user" />
-                <span className="nav-text">全部</span>
-              </div>
-            </Link>
-          </Menu.Item>
-          {cateList.map(item => (
-            <Menu.Item key={item.category}>
-              <Link
-                href={{
-                  pathname: "/overview",
-                  query: { cate: encodeURIComponent(item.category) }
-                }}
-              >
-                <div>
-                  <Icon type="user" />
-                  <span className="nav-text">{item.category}</span>
-                </div>
-              </Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-        <Divider>标签云</Divider>
-        {tagList.map(tag => (
-          <Tag color="blue" key={tag.name}>
-            {tag.name}
-          </Tag>
-        ))}
-        <Divider>近期文章</Divider>
-        <Timeline>
-          {currentArticles.map(article => (
-            <Timeline.Item key={article.id}>
-              <Link
-                href={{
-                  pathname: "/article",
-                  query: { id: article.id }
-                }}
-              >
-                <a>{article.title}</a>
-              </Link>
-            </Timeline.Item>
-          ))}
-        </Timeline>
+        <Sider
+          cateList={cateList}
+          tagList={tagList}
+          currentArticles={currentArticles}
+        ></Sider>
       </div>
-      <MyDrawer children={<Intro></Intro>}></MyDrawer>
+      <MyDrawer
+        children={<Intro></Intro>}
+        showIcon={
+          <Icon
+            type="environment"
+            theme="twoTone"
+            style={{ fontSize: "20px" }}
+          />
+        }
+        placement="right"
+        topVh="20vh"
+      ></MyDrawer>
+      <MyDrawer
+        children={
+          <Sider
+            cateList={cateList}
+            tagList={tagList}
+            currentArticles={currentArticles}
+          ></Sider>
+        }
+        showIcon={
+          <Icon type="appstore" theme="twoTone" style={{ fontSize: "20px" }} />
+        }
+        placement="right"
+        topVh="30vh"
+      ></MyDrawer>
       <style jsx>{style}</style>
     </Spin>
   );
@@ -146,6 +128,9 @@ const style = css`
     width: 300px;
     top: 100px;
     right: 20px;
+    height: calc(100vh - 64px - 40px);
+    text-align: center;
+    overflow-y: auto;
   }
   .pagination {
     display: flex;

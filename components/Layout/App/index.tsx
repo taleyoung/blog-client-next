@@ -22,9 +22,10 @@ const AppLayout: SFC<Props> = props => {
         </Col>
         <Col {...contentLayout}>
           <div className="app-main">{props.children}</div>
+          <Footer className="footer">Designed By Taleyoung ❤️</Footer>
         </Col>
       </Row>
-      <Footer className="footer">Designed By Taleyoung ❤️</Footer>
+
       <style jsx global>
         {`
           .app-wrapper {

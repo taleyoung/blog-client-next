@@ -22,7 +22,10 @@ const Left: SFC<Props> = ({ menuList }) => {
   );
   return (
     <div className="left">
-      <div className="logo">Taleyoung's Blog</div>
+      <div className="logo">
+        <Icon type="bulb" theme="twoTone" style={{ fontSize: "30px" }} />
+        Taleyoung's Blog
+      </div>
       <div className="header-dropdown">
         <Dropdown
           overlayStyle={{

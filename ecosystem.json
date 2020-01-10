@@ -1,0 +1,24 @@
+{
+  "apps": [
+    {
+      "name": "client-next",
+      "interpreter": "node_modules/.bin/ts-node",
+      "script": "server.ts",
+      "cwd": "./",
+      "watch": "./",
+      "error_file": "./logs/app-err.log",
+      "out_file": "./logs/app-out.log",
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "ty",
+      "host": "39.105.35.4",
+      "ref": "origin/master",
+      "repo": "git@github.com:taleyoung/server-koa.git",
+      "path": "/home/ty/project/server-koa",
+      "post-deploy": "npm install && npm run pm2"
+    }
+  }
+}

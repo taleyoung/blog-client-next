@@ -28,7 +28,8 @@ const Articles: FC<Props> = ({ data }) => (
           <img
             width={200}
             alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            src="/static/img/article2.jpg"
+            className="extra-img"
           />
         }
       >
@@ -59,6 +60,13 @@ const Articles: FC<Props> = ({ data }) => (
         >
           <a style={{ color: "#556cd6" }}> 查看全文</a>
         </Link>
+        <style jsx>
+          {`
+            .extra-img {
+              border-radius: 10px;
+            }
+          `}
+        </style>
       </List.Item>
     )}
   />
