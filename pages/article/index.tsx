@@ -10,7 +10,6 @@ import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
 import myApi from "@utils/myApi";
 
-import contentStyle from "./content-style";
 import Navigate from "./Navigate";
 
 interface Props {
@@ -63,7 +62,6 @@ const Article: NextPage<Props> = props => {
       </div>
       <div className="navigate">{navigate && navigate.render()}</div>
       <style jsx>{style}</style>
-      <style jsx>{contentStyle}</style>
     </Spin>
   );
 };
