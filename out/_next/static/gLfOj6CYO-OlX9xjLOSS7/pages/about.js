@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[18],{"8xRS":function(n,t,u){(window.__NEXT_P=window.__NEXT_P||[]).push(["/about",function(){return u("jXL8")}])},jXL8:function(n,t,u){"use strict";u.r(t);var o=u("q1tI"),e=u.n(o).a.createElement;t.default=function(){return e("div",null,"About")}}},[["8xRS",0,1]]]);

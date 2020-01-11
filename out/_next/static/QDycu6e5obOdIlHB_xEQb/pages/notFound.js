@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[11],{"2hIt":function(n,t,o){(window.__NEXT_P=window.__NEXT_P||[]).push(["/notFound",function(){return o("OyiS")}])},OyiS:function(n,t,o){"use strict";o.r(t);var u=o("q1tI"),i=o.n(u).a.createElement;t.default=function(){return i("div",null,"not found")}}},[["2hIt",0,1]]]);
