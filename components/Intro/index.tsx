@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { Avatar, Divider, Icon, Popover } from "antd";
+import { Avatar, Divider, Icon, Popover, Tag } from "antd";
 import css from "styled-jsx/css";
+import * as INTRO from "@config/intro";
 
 const Intro: FC = () => {
   return (
@@ -18,15 +19,19 @@ const Intro: FC = () => {
             "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
         }}
       ></Avatar>
-      <div className="title">taleyoung</div>
-      <div className="subTitle">js爱好者</div>
-      <div className="subTitle">web开发工程师</div>
+      <div className="title">{INTRO.title}</div>
+      {INTRO.subTitle.map(item => (
+        <div className="subTitle" key={item}>
+          {item}
+        </div>
+      ))}
       <Divider>技能树</Divider>
       <div className="articleList">
-        <div>从Material Design到UI设计</div>
-        <div>从Material Design到UI设计</div>
-        <div>从Material Design到UI设计</div>
-        <div>从Material Design到UI设计</div>
+        {INTRO.skillLists.map(item => (
+          <Tag color="#2db7f5" key={item} style={{ margin: "5px" }}>
+            {item}
+          </Tag>
+        ))}
       </div>
       <Divider>联系我</Divider>
       <div className="contact">

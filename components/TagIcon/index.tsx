@@ -2,12 +2,12 @@ import React, { SFC } from "react";
 import { Icon } from "antd";
 
 interface IProp {
-  type: string;
+  type?: string;
 }
 
-const TagIcon: SFC<IProp> = props => (
+const TagIcon: SFC<IProp> = ({ type }) => (
   <span className="tag">
-    <Icon type={props.type}></Icon>
+    {type && <Icon type={type}></Icon>}
     <style jsx>
       {`
         .tag {
