@@ -6,10 +6,10 @@ const Intro: FC = () => {
   return (
     <div className="container">
       <div className="bg">
-        <img className="bg-img" src="/static/img/bg.jpg" alt="" />
+        <img className="bg-img" src="/static/bg.jpg" alt="" />
       </div>
       <Avatar
-        src="/static/img/avatar1.jpeg"
+        src="/static/avatar1.jpeg"
         size="large"
         style={{
           width: "100px",

@@ -1,7 +1,7 @@
 import { MenuList } from "@itypings/config";
 const menuList: Array<MenuList> = [
   {
-    path: "/overview",
+    path: "/",
     iconType: "icon-qiu",
     name: "首页"
   },

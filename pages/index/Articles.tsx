@@ -28,7 +28,7 @@ const Articles: FC<Props> = ({ data }) => (
           <img
             width={200}
             alt="logo"
-            src="/static/img/article2.jpg"
+            src="/static/article1.png"
             className="extra-img"
           />
         }

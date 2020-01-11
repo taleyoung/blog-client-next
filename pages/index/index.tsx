@@ -20,7 +20,7 @@ interface Props {
   currentArticles: Array<{ id: string; title: string; createAt: string }>;
 }
 
-const Overview: NextPage<Props> = props => {
+const Home: NextPage<Props> = props => {
   const { articleList, cate, cateListData, tagList, currentArticles } = props;
   const { total, data = [] } = articleList;
   const { data: cateList } = cateListData;
@@ -105,7 +105,7 @@ const Overview: NextPage<Props> = props => {
   );
 };
 
-Overview.getInitialProps = async ({ query }) => {
+Home.getInitialProps = async ({ query }) => {
   const { cate } = query;
   const res: ArticleList = cate
     ? await fetchArticles(1, cate)
@@ -116,7 +116,7 @@ Overview.getInitialProps = async ({ query }) => {
   return { articleList: res, cate, cateListData, tagList, currentArticles };
 };
 
-export default Overview;
+export default Home;
 
 const style = css`
   .main {

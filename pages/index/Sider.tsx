@@ -13,7 +13,7 @@ const Sider: FC<Props> = ({ cateList, tagList, currentArticles }) => (
     <Divider>文章归类</Divider>
     <Menu theme="light" mode="inline" defaultSelectedKeys={["全部"]}>
       <Menu.Item key="全部">
-        <Link href="/overview">
+        <Link href="">
           <div>
             <Icon type="user" />
             <span className="nav-text">全部</span>
@@ -24,7 +24,7 @@ const Sider: FC<Props> = ({ cateList, tagList, currentArticles }) => (
         <Menu.Item key={item.category}>
           <Link
             href={{
-              pathname: "/overview",
+              pathname: "/",
               query: { cate: encodeURIComponent(item.category) }
             }}
           >
