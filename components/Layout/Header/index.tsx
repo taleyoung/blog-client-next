@@ -1,6 +1,6 @@
 import React, { SFC } from "react";
 import { Icon, Layout, Row, Col } from "antd";
-import { menuList } from "../../../../config/index";
+import { menuList } from "@config/index";
 import Left from "./Left";
 import Right from "./Right";
 const { Header } = Layout;

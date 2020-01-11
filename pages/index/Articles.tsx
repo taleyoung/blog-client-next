@@ -24,14 +24,14 @@ const Articles: FC<Props> = ({ data }) => (
             isTime={false}
           ></ArticleInfo>
         ]}
-        extra={
-          <img
-            width={200}
-            alt="logo"
-            src="/static/article1.png"
-            className="extra-img"
-          />
-        }
+        // extra={
+        //   <img
+        //     width={200}
+        //     alt="logo"
+        //     src="/static/article2.jpg"
+        //     className="extra-img"
+        //   />
+        // }
       >
         <List.Item.Meta
           avatar={
