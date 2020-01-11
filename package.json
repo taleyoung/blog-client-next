@@ -7,9 +7,9 @@
     "dev": "next dev",
     "koadev": "nodemon",
     "build": "next build",
-    "start": "ts-node --project tsconfig.server.json server.ts",
+    "start": "next build && next start",
     "export": "next export",
-    "pm2": "next build && pm2 start npm --name='client-next' -- start"
+    "pm2": "next build && pm2 start ecosystem.json"
   },
   "dependencies": {
     "@types/koa": "^2.0.52",

@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "client-next",
-      "script": "ts-node --project tsconfig.server.json server.ts",
+      "script": "NODE_ENV=production ts-node --project tsconfig.server.json server.ts",
       "cwd": "./",
       "watch": "./",
       "error_file": "./logs/app-err.log",
