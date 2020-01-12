@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next build && next start",
     "export": "next export",
-    "pm2": "next build && pm2 start npm --name='client-next' -- start"
+    "pm2": "pm2 start npm --name='client-next' -- start"
   },
   "dependencies": {
     "@types/koa": "^2.0.52",

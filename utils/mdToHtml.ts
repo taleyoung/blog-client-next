@@ -22,7 +22,7 @@ function useMdToHtml(content: string) {
   });
 
   const res = marked(content);
-  const output = `<div>${res}<style> pre{background-color: #eee; border-radius: 5px; padding: 20px;} </style></div>`;
+  const output = `<div>${res}<style> pre{background-color: #eee; border-radius: 5px; padding: 15px; margin-top:10px;} </style></div>`;
   return { output, navigate };
 }
 

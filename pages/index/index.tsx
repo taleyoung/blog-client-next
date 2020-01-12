@@ -92,6 +92,7 @@ const Home: NextPage<Props> = props => {
         }
         placement="right"
         topVh="20vh"
+        containerClass=".main"
       ></MyDrawer>
       <MyDrawer
         children={
@@ -107,6 +108,7 @@ const Home: NextPage<Props> = props => {
         }
         placement="right"
         topVh="30vh"
+        containerClass=".main"
       ></MyDrawer>
       <style jsx>{style}</style>
     </Spin>

@@ -11,15 +11,15 @@ interface Props {
     total: number;
   };
 }
-const TimeLine: NextPage<Props> = ({ briefList }) => {
-  const [list, setList] = useState([]);
-  const [listTotal, setListTotal] = useState();
+const Archive: NextPage<Props> = ({ briefList }) => {
   const { data, total } = briefList;
+  const [list, setList] = useState(data);
+  const [listTotal, setListTotal] = useState(total);
 
-  useEffect(() => {
-    setList(data);
-    setListTotal(total);
-  }, [briefList]);
+  //   useEffect(() => {
+  //     setList(data);
+  //     setListTotal(total);
+  //   }, [briefList]);
 
   const pageChange = async (page: number) => {
     const res = await myApi(`article/briefList?page=${page}&page_size=20`);
@@ -27,14 +27,24 @@ const TimeLine: NextPage<Props> = ({ briefList }) => {
     setListTotal(res.total);
   };
 
+  const isOtherYear = () => {};
+
   return (
     <div className="container">
       <Timeline mode="left">
+        <Timeline.Item
+          dot={
+            <Icon
+              type="highlight"
+              theme="twoTone"
+              style={{ fontSize: "25px" }}
+            />
+          }
+        >
+          <div className="title">Keep coding!</div>
+        </Timeline.Item>
         {list.map(item => (
-          <Timeline.Item
-            dot={<Icon type="clock-circle-o" style={{ fontSize: "16px" }} />}
-            key={item.id}
-          >
+          <Timeline.Item key={item.id}>
             <span className="time"> {item.createAt}</span>
             <Link
               href={{
@@ -60,11 +70,11 @@ const TimeLine: NextPage<Props> = ({ briefList }) => {
     </div>
   );
 };
-TimeLine.getInitialProps = async () => {
+Archive.getInitialProps = async () => {
   const briefList = await myApi("article/briefList?page=1&page_size=20");
   return { briefList };
 };
-export default TimeLine;
+export default Archive;
 
 const style = css`
   .container {
@@ -73,5 +83,10 @@ const style = css`
   }
   .time {
     margin-right: 10px;
+  }
+  .title {
+    font-size: 25px;
+    font-weight: bold;
+    margin: -5px 0 0 10px;
   }
 `;

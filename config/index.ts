@@ -6,7 +6,7 @@ const menuList: Array<MenuList> = [
     name: "首页"
   },
   {
-    path: "/timeline",
+    path: "/archive",
     iconType: "icon-jilu",
     name: "文章归档"
   },

@@ -4,6 +4,7 @@ import css from "styled-jsx/css";
 import { Spin, Icon, Divider } from "antd";
 import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
+import MyDrawer from "@components/MyDrawer";
 import myApi from "@utils/myApi";
 
 import { useMdToHtml } from "@utils/mdToHtml";
@@ -37,9 +38,20 @@ const Article: NextPage<Props> = props => {
           category={category}
         ></ArticleInfo>
         <Divider></Divider>
+        <MyDrawer
+          children={navigate && navigate.render()}
+          showIcon={
+            <Icon type="profile" theme="twoTone" style={{ fontSize: "20px" }} />
+          }
+          placement="right"
+          topVh="40vh"
+          containerClass=".article"
+          title="文章目录"
+        ></MyDrawer>
         <div className="content" dangerouslySetInnerHTML={{ __html: output }} />
       </div>
       <div className="navigate">{navigate && navigate.render()}</div>
+
       <style jsx>{style}</style>
     </Spin>
   );

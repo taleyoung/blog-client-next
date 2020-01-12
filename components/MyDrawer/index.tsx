@@ -6,13 +6,17 @@ interface Props {
   showIcon: ReactNode;
   placement: "right" | "top" | "bottom" | "left";
   topVh: string;
+  containerClass: string;
+  title?: string;
 }
 
 const MyDrawer: FC<Props> = ({
   children,
   showIcon,
   placement = "right",
-  topVh
+  topVh,
+  containerClass,
+  title
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
@@ -21,12 +25,12 @@ const MyDrawer: FC<Props> = ({
         {showIcon}
       </div>
       <Drawer
-        title="Taleyoung's Blog"
+        title={title ? title : "Taleyoung's Blog"}
         placement={placement}
         closable={false}
         onClose={() => setDrawerOpen(false)}
         visible={drawerOpen}
-        getContainer={() => document.querySelector(".main")}
+        getContainer={() => document.querySelector(containerClass)}
       >
         {children}
       </Drawer>

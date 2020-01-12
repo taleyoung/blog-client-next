@@ -1,5 +1,5 @@
 import React, { SFC } from "react";
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
 import Link from "next/link";
 import { MenuList } from "@itypings/config";
 
@@ -11,15 +11,17 @@ const Right: SFC<Props> = ({ menuList }) => {
   return (
     <div>
       <Menu
-        theme="dark"
+        theme="light"
         mode="horizontal"
-        defaultSelectedKeys={[]}
-        style={{ lineHeight: "64px", backgroundColor: "#556cd6" }}
+        style={{
+          lineHeight: "64px",
+          backgroundColor: "#556cd6"
+        }}
       >
         {menuList.map(item => (
           <Menu.Item key={item.name}>
             <Link href={item.path}>
-              <a>{item.name}</a>
+              <a style={{ color: "#fff" }}>{item.name}</a>
             </Link>
           </Menu.Item>
         ))}
