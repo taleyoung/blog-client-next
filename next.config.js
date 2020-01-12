@@ -19,28 +19,6 @@ module.exports = withCss({
       "@itypings": path.resolve(clientPath, "typings"),
       "@config": path.resolve(clientPath, "config")
     };
-    console.log("config :", config);
-    console.log(
-      "config.optimization.minimizer :",
-      config.optimization.minimizer
-    );
-    // config.module.rules.push({
-    //   test: /\.(jpe?g|png|svg|gif|ico|webp)$/,
-    //   use: [
-    //     {
-    //       loader: "url-loader",
-    //       options: {
-    //         limit: 8192,
-    //         fallback: "file-loader",
-    //         publicPath: `/_next/static/images/`,
-    //         outputPath: `${isServer ? "../" : ""}static/images/`,
-    //         name: "[name]-[hash].[ext]"
-    //       }
-    //     }
-    //   ]
-    // });
-
     return config;
   }
-  // })
 });

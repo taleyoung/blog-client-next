@@ -20,21 +20,22 @@ const Sider: FC<Props> = ({ cateList, tagList, currentArticles }) => (
           </div>
         </Link>
       </Menu.Item>
-      {cateList.map(item => (
-        <Menu.Item key={item.category}>
-          <Link
-            href={{
-              pathname: "/",
-              query: { cate: encodeURIComponent(item.category) }
-            }}
-          >
-            <div>
-              <Icon type="user" />
-              <span className="nav-text">{item.category}</span>
-            </div>
-          </Link>
-        </Menu.Item>
-      ))}
+      {cateList &&
+        cateList.map(item => (
+          <Menu.Item key={item.category}>
+            <Link
+              href={{
+                pathname: "/",
+                query: { cate: encodeURIComponent(item.category) }
+              }}
+            >
+              <div>
+                <Icon type="user" />
+                <span className="nav-text">{item.category}</span>
+              </div>
+            </Link>
+          </Menu.Item>
+        ))}
     </Menu>
     {/* <Divider>标签云</Divider>
     {tagList.map(tag => (
@@ -44,18 +45,19 @@ const Sider: FC<Props> = ({ cateList, tagList, currentArticles }) => (
     ))} */}
     <Divider>近期文章</Divider>
     <Timeline>
-      {currentArticles.map(article => (
-        <Timeline.Item key={article.id}>
-          <Link
-            href={{
-              pathname: "/article",
-              query: { id: article.id }
-            }}
-          >
-            <a>{article.title}</a>
-          </Link>
-        </Timeline.Item>
-      ))}
+      {currentArticles &&
+        currentArticles.map(article => (
+          <Timeline.Item key={article.id}>
+            <Link
+              href={{
+                pathname: "/article",
+                query: { id: article.id }
+              }}
+            >
+              <a>{article.title}</a>
+            </Link>
+          </Timeline.Item>
+        ))}
     </Timeline>
   </>
 );

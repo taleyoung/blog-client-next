@@ -10,7 +10,7 @@ import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
 import myApi from "@utils/myApi";
 
-import Navigate from "./Navigate";
+import Navigate from "@components/Navigate";
 
 interface Props {
   article: ArticleDetail;

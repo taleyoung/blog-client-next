@@ -21,9 +21,15 @@ interface Props {
 }
 
 const Home: NextPage<Props> = props => {
-  const { articleList, cate, cateListData, tagList, currentArticles } = props;
+  const {
+    articleList,
+    cate,
+    cateListData,
+    tagList,
+    currentArticles = []
+  } = props;
   const { total, data = [] } = articleList;
-  const { data: cateList } = cateListData;
+  const { data: cateList = [] } = cateListData;
   const [category, setCategory] = useState<string>(null);
   const [list, setList] = useState(data);
   const [listTotal, setListTotal] = useState(total);
