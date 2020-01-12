@@ -22,5 +22,7 @@ const style = css`
     text-align: center;
     color: rgba(0, 0, 0, 0.65);
     overflow-y: auto;
+    margin: 0 auto;
+    position: fixed;
   }
 `;

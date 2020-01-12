@@ -93,7 +93,7 @@ const style = css`
     position: fixed;
     width: 300px;
     top: 104px;
-    right: 20px;
+    right: 60px;
   }
   @media screen and (max-width: 736px) {
     .navigate {

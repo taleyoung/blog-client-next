@@ -20,7 +20,7 @@ const MyHeader: SFC<Props> = () => {
       <Header
         className="header"
         style={{
-          position: "relative",
+          position: "fixed",
           zIndex: 1,
           width: "100%",
           backgroundColor: "#556cd6",

@@ -78,6 +78,7 @@ const Home: NextPage<Props> = props => {
           cateList={cateList}
           tagList={tagList}
           currentArticles={currentArticles}
+          category={category}
         ></Sider>
       </div>
       <MyDrawer
@@ -96,6 +97,7 @@ const Home: NextPage<Props> = props => {
         children={
           <Sider
             cateList={cateList}
+            category={category}
             tagList={tagList}
             currentArticles={currentArticles}
           ></Sider>
@@ -133,7 +135,7 @@ const style = css`
     position: fixed;
     width: 300px;
     top: 100px;
-    right: 20px;
+    right: 70px;
     height: calc(100vh - 64px - 40px);
     text-align: center;
     overflow-y: auto;

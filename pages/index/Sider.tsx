@@ -1,42 +1,42 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import { Divider, Button, Menu, Icon, Tag, Timeline } from "antd";
+import { Divider, Timeline, Radio } from "antd";
 
 interface Props {
   cateList: Array<{ category: string }>;
+  category: string;
   tagList: Array<{ id: string; name: string }>;
   currentArticles: Array<{ id: string; title: string; createAt: string }>;
 }
 
-const Sider: FC<Props> = ({ cateList, tagList, currentArticles }) => (
+const Sider: FC<Props> = ({ cateList, category, currentArticles }) => (
   <>
     <Divider>文章归类</Divider>
-    <Menu theme="light" mode="inline" defaultSelectedKeys={["全部"]}>
-      <Menu.Item key="全部">
-        <Link href="">
-          <div>
-            <Icon type="user" />
-            <span className="nav-text">全部</span>
-          </div>
-        </Link>
-      </Menu.Item>
+    <Radio.Group
+      value={category ? category : "全部"}
+      defaultValue={category ? category : "全部"}
+      buttonStyle="solid"
+    >
+      <Link href="/">
+        <Radio.Button value="全部" style={{ margin: "10px" }}>
+          全部文章
+        </Radio.Button>
+      </Link>
       {cateList &&
         cateList.map(item => (
-          <Menu.Item key={item.category}>
-            <Link
-              href={{
-                pathname: "/",
-                query: { cate: encodeURIComponent(item.category) }
-              }}
-            >
-              <div>
-                <Icon type="user" />
-                <span className="nav-text">{item.category}</span>
-              </div>
-            </Link>
-          </Menu.Item>
+          <Link
+            href={{
+              pathname: "/",
+              query: { cate: encodeURIComponent(item.category) }
+            }}
+            key={item.category}
+          >
+            <Radio.Button style={{ margin: "5px" }} value={item.category}>
+              {item.category}
+            </Radio.Button>
+          </Link>
         ))}
-    </Menu>
+    </Radio.Group>
     {/* <Divider>标签云</Divider>
     {tagList.map(tag => (
       <Tag color="blue" key={tag.name}>
