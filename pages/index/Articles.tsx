@@ -3,6 +3,7 @@ import Link from "next/link";
 import { List, Avatar } from "antd";
 import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
+import { useMdToBrief } from "@utils/mdToHtml";
 
 interface Props {
   data: Array<ArticleDetail>;
@@ -51,7 +52,11 @@ const Articles: FC<Props> = ({ data }) => (
           }
           description={item.updatedAt}
         />
-        {item.content}
+
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: useMdToBrief(item.content) }}
+        />
         <Link
           href={{
             pathname: "/article",

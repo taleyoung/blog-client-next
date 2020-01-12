@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import css from "styled-jsx/css";
-import marked from "marked";
-import hljs from "highlight.js";
 import { Spin, Icon, Divider } from "antd";
-import "highlight.js/styles/atelier-forest-dark.css";
-
 import { ArticleDetail } from "@itypings/store";
 import ArticleInfo from "@components/ArticleInfo";
 import myApi from "@utils/myApi";
 
-import Navigate from "@components/Navigate";
+import { useMdToHtml } from "@utils/mdToHtml";
 
 interface Props {
   article: ArticleDetail;
@@ -20,24 +16,7 @@ const Article: NextPage<Props> = props => {
   const [loading, setloading] = useState(true);
   const { article } = props;
   const { title, content, updatedAt, tags = [], category } = props.article;
-
-  const navigate = new Navigate();
-  const renderer = new marked.Renderer();
-  renderer.heading = function(text, level) {
-    const anchor = navigate.add(text, level);
-    return `<div id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></div>\n`;
-  };
-  marked.setOptions({
-    renderer,
-    gfm: true,
-    pedantic: false,
-    sanitize: false,
-    breaks: true,
-    smartLists: true,
-    smartypants: true,
-    highlight: code => hljs.highlightAuto(code).value
-  });
-  const output = marked(content);
+  const { output, navigate } = useMdToHtml(content);
 
   useEffect(() => {
     if (article) {
@@ -47,7 +26,7 @@ const Article: NextPage<Props> = props => {
 
   return (
     <Spin
-      spinning={loading}
+      spinning={false}
       indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />}
     >
       <div className="article">
