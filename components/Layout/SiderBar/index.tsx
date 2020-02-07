@@ -1,7 +1,5 @@
 import React, { SFC } from "react";
 import css from "styled-jsx/css";
-import Link from "next/link";
-import { Divider, Tag, Menu, Icon } from "antd";
 import Intro from "@components/Intro";
 
 const SideBar: SFC = () => {

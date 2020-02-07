@@ -34,16 +34,14 @@ const AppLayout: SFC<Props> = props => {
           .app-wrapper {
             background: #fff;
             padding: 40px 0 0;
-             {
-              /* position: relative; */
-            }
-            margin: 40px 60px 0 60px;
+
+            margin: 40px 0px 0 0px;
           }
           .app-main {
             min-height: 100vh;
             -webkit-overflow-scrolling: touch;
             box-sizing: border-box;
-            padding-left: 20px;
+            padding-left: 0px;
             padding-right: 20px;
           }
           .footer {

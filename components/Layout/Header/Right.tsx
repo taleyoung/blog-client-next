@@ -15,7 +15,9 @@ const Right: SFC<Props> = ({ menuList }) => {
         mode="horizontal"
         style={{
           lineHeight: "64px",
-          backgroundColor: "#556cd6"
+          backgroundColor: "#556cd6",
+          display: "flex",
+          justifyContent: "center"
         }}
       >
         {menuList.map(item => (

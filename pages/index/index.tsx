@@ -137,7 +137,7 @@ const style = css`
     position: fixed;
     width: 300px;
     top: 100px;
-    right: 70px;
+    right: 10px;
     height: calc(100vh - 64px - 40px);
     text-align: center;
     overflow-y: auto;

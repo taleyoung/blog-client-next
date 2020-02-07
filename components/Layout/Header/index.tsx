@@ -1,15 +1,12 @@
 import React, { SFC } from "react";
-import { Icon, Layout, Row, Col } from "antd";
+import { Layout, Row, Col } from "antd";
 import { menuList } from "@config/index";
 import Left from "./Left";
 import Right from "./Right";
 const { Header } = Layout;
 
-const IconFont = Icon.createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1445382_6tc0o0rwbfu.js"
-});
 // 响应式
-const responsiveLeft = { xxl: 5, xl: 5, lg: 5, sm: 4, xs: 24 };
+const responsiveLeft = { xxl: 5, xl: 5, lg: 5, sm: 24, xs: 24 };
 const responsiveRight = { xxl: 5, xl: 5, lg: 10, sm: 0, xs: 0 };
 
 export interface Props {}

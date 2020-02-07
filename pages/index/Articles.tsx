@@ -18,12 +18,15 @@ const Articles: FC<Props> = ({ data }) => (
       <List.Item
         key={item.title}
         actions={[
-          <ArticleInfo
-            time={item.updatedAt}
-            tags={item.tags}
-            category={item.category}
-            isTime={false}
-          ></ArticleInfo>
+          <div>
+            <ArticleInfo
+              time={item.updatedAt}
+              tags={item.tags}
+              category={item.category}
+              isTime={true}
+            ></ArticleInfo>
+            {/* {item.updatedAt} */}
+          </div>
         ]}
         // extra={
         //   <img
@@ -35,11 +38,6 @@ const Articles: FC<Props> = ({ data }) => (
         // }
       >
         <List.Item.Meta
-          avatar={
-            <Avatar style={{ color: "#fff", backgroundColor: "#556cd6" }}>
-              {item.title.trim().slice(0, 1)}
-            </Avatar>
-          }
           title={
             <Link
               href={{
@@ -47,28 +45,37 @@ const Articles: FC<Props> = ({ data }) => (
                 query: { id: item.id }
               }}
             >
-              <a> {item.title}</a>
+              <a className="title">{item.title}</a>
             </Link>
           }
-          description={item.updatedAt}
         />
-
-        <div
-          className="content"
-          dangerouslySetInnerHTML={{ __html: useMdToBrief(item.content) }}
-        />
-        <Link
-          href={{
-            pathname: "/article",
-            query: { id: item.id }
-          }}
-        >
-          <a style={{ color: "#556cd6" }}> 查看全文</a>
-        </Link>
+        <div className="content-wrap">
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{ __html: useMdToBrief(item.content) }}
+          />
+          <Link
+            href={{
+              pathname: "/article",
+              query: { id: item.id }
+            }}
+          >
+            <a style={{ color: "#556cd6" }}> 查看全文</a>
+          </Link>
+        </div>
         <style jsx>
           {`
             .extra-img {
               border-radius: 10px;
+            }
+            .title {
+              color: rgba(0, 0, 0, 0.65);
+              font-size: 1.6em;
+            }
+            .content-wrap {
+              background-color: #eee;
+              padding: 20px;
+              border-radius: 5px;
             }
           `}
         </style>

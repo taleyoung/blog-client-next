@@ -17,7 +17,6 @@ const ArticleInfo: SFC<Props> = ({
 }) => {
   return (
     <div className="info">
-      {isTime ? <span className="date">发布于 {time}</span> : ""}
       <TagIcon type="tag"></TagIcon>
       {tags.map(item => (
         <Tag color="orange" key={item}>
@@ -27,6 +26,8 @@ const ArticleInfo: SFC<Props> = ({
       <Divider type="vertical"></Divider>
       <TagIcon type="container" />
       <Tag color="orange">{category}</Tag>
+      <Divider type="vertical"></Divider>
+      {isTime ? <span className="date">发布于 {time}</span> : ""}
       <style jsx>{`
         .info {
           display: flex;
