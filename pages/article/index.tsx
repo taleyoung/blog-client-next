@@ -78,7 +78,8 @@ const style = css`
   }
   .content {
     width: 100%;
-    font-size: 15px;
+    font-size: 1.2em;
+    line-height: 2;
   }
   .navigate {
     position: fixed;
